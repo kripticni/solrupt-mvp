@@ -1,0 +1,12 @@
+[package]
+name = "arena-verifier"
+version = "0.1.0"
+edition = "2021"
+
+# Pinned 2026-10-03 (mvp/PINS.md): litesvm 0.17.0, rust 1.97.1.
+# NOTE: built only after `cargo` reaches the registry (crates.io 403s tor exits
+# as of tonight) — Diff 3 records the first green build. Until then: unbuilt stub.
+
+[dependencies]
+litesvm = "=0.17.0"
+thiserror = "1"

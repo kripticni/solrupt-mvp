@@ -1,0 +1,42 @@
+# Quiz for lesson 101-accounts-signer. Answers are SERVER-ONLY: GET strips
+# `answer`/`explain`; POST grades. Points feed the existing solves/board path.
+id: quiz-101
+lesson: 101-accounts-signer
+points_total: 15
+questions:
+  - id: q1
+    q: "A Solana account carries an address, data, lamports, and one more field that says which program may write its data. Which field?"
+    choices:
+      - "owner"
+      - "signer"
+      - "bump"
+      - "discriminator"
+    answer: 0
+    points: 5
+    severity: Medium
+    explain: "owner is the only program allowed to write the account's data. Anyone can create an account and fill its bytes. Owner says who is responsible for them."
+    review: "What an account is"
+  - id: q2
+    q: "The vault stores authority = Alice's pubkey. An attacker sends withdraw_insecure with authority = Alice's pubkey but signs as themselves. Why does the `==` check pass?"
+    choices:
+      - "The runtime signs for known pubkeys automatically"
+      - "Equality compares bytes; it never checks who signed this transaction"
+      - "The vault's PDA signs again on behalf of Alice"
+      - "Anchor coerces any account into a signer"
+    answer: 1
+    points: 5
+    severity: Critical
+    explain: "Passing a pubkey is typing, not consent. Only is_signer, set by the runtime when the private key signs, proves agreement. The check compared names, never signatures."
+    review: "What a signer is"
+  - id: q3
+    q: "What is the one word fix that makes the transaction fail before program code runs when the authority did not sign?"
+    choices:
+      - "UncheckedAccount"
+      - "AccountInfo"
+      - "Signer"
+      - "Program"
+    answer: 2
+    points: 5
+    severity: High
+    explain: "Signer<'info> makes Anchor verify is_signer during account validation, before the instruction body. AccountInfo and UncheckedAccount opt out of that check."
+    review: "The fix (one word)"

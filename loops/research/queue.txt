@@ -1,1 +1,1 @@
-Standing order: PARKED 2026-10-03 — stara ideja se ne gradi; čekaj operatorov novi MVP spec, pa radi prvi pending S-goal redom.
+Standing order: H02 build 2026-10-03 — work S5 → S6 → S7 → S8 → S9 → S10 → S11 in order, first `pending` goal is active. Scope: notes/mvp-scope-2026-10-03.md. Freeze windows: Sat 19:00 scope, Sun 11:00 code+evidence. Evidence rows from 11:00 Sat, failures verbatim.

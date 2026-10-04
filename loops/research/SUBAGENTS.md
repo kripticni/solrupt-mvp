@@ -35,6 +35,27 @@ L = divided roles with a coordinator.
 Builders write the artifact to disk and return the REF only (a short
 pointer back to the lead, never the full transcript).
 
+## Spawn grant gate (binding — brief rejected before spawn if missing)
+Before ANY spawn, the brief passes: objective present + tools+boundaries
+present + target path verified to exist (`test -e`) + effort sized.
+A failing brief is re-briefed (advisory, counted), never silently
+launched — mid-leg aborts cost more than one re-brief round.
+
+## Fan-out law
+- Width ≤3, independent tracks only, launched together; keep working
+while they run. Default ≤2 parallel tracks; wider needs a stated reason.
+Every parallel batch reports child-inclusive cost beside its time win.
+- Canary first: ONE cheap premise probe (`test -e` / `grep -c` / `stat`,
+≤60s) before any n≥3 fan-out or expensive wave. GO = claim holds with
+observed line; NO-GO = stop, don't fan out. (Would've aborted every
+poisoned-premise wave in fleet history.)
+- MCP tools default-off: no MCP server enabled unless the brief names it
+with a stated reason — auto-available tools bloat every turn's context.
+- Curated briefs beat full history: lead ≤5 hot files, rest by
+pointer+byte-range; per-leg ≤2k tokens out/back, ≤5 files, zero history
+inheritance. Full-history re-reads burned ~1M tokens in one fleet night
+— never again: verdict-lines-only + gate verdicts unless opening the goal.
+
 ## Orchestration law
 - Width ≤3, independent tracks only, launched together; keep working
 while they run.

@@ -1,0 +1,40 @@
+[package]
+name = "l4-cosplay"
+version = "0.1.0"
+description = "Arena L4: type cosplay (port of z0neSec type-cosplay, MIT)"
+edition = "2021"
+
+[lib]
+crate-type = ["cdylib", "lib"]
+name = "l4_cosplay"
+
+[features]
+default = []
+cpi = ["no-entrypoint"]
+no-entrypoint = []
+no-idl = []
+no-log-ix-name = []
+idl-build = ["anchor-lang/idl-build"]
+
+[dependencies]
+# Source pins 0.31.0 (see L1 note in l1-signer/Cargo.toml re 0.32.2 decision).
+anchor-lang = "0.32.2"
+
+# TEMPORARY (remove when platform cargo >= 1.85): local edition2021 rebuilds of
+# crates whose manifests demand edition2024. Sources = upstream .crate bytes,
+# only `edition = "2024"` -> `"2021"` changed; no 2024-only syntax in any of them.
+zeroize_derive = "=1.4.2"
+zeroize = "=1.8.1"
+ctutils = "=0.3.0"
+proc-macro-crate = "=3.3.0"
+indexmap = "=2.9.0"
+unicode-segmentation = "=1.12.0"
+
+[patch.crates-io]
+block-buffer = { path = "../../patches/block-buffer-0.12.1" }
+digest = { path = "../../patches/digest-0.11.3" }
+blake3 = { path = "../../patches/blake3-1.8.7" }
+crypto-common = { path = "../../patches/crypto-common-0.2.2" }
+ctutils = { path = "../../patches/ctutils-0.3.0" }
+cmov = { path = "../../patches/cmov-0.4.6" }
+cpufeatures = { path = "../../patches/cpufeatures-0.3.2" }

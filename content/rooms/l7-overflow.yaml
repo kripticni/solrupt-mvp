@@ -1,0 +1,28 @@
+# L7 room: integer overflow (19 §4.3 challenge schema).
+id: l7-overflow
+title: "Off by quintillions: wrap the books"
+tier: Hard
+points: 250
+prereq: l6-vault
+program:
+  vuln: content/programs/l7-overflow/src/lib.rs
+  fixed: content/programs/l7-overflow/src/lib.rs
+  so: content/programs/l7-overflow/l7_overflow.so
+  so_digest: c3ac4e275c9e13d0b355de6a073da446a91dd06bf270b196a5e095111a56d067 # anchor build 2026-10-04, solana 2.3.0 + anchor 0.32.2
+template: content/programs/l7-overflow/exploit-template.txt
+hints:
+  - "The vault holds 100 units and the instruction subtracts with a bare minus. What does 100 minus 101 equal on a release build?"
+  - "Debug builds panic on overflow; BPF release builds wrap silently. This lab runs the release build. Ask for one more than exists."
+  - "The secure instruction is byte identical except for one method: checked_sub turns the wrap into InsufficientFunds. Same inputs, opposite verdict."
+checks:
+  pass_when: balance_wrapped_past_u64_max
+  negative_control: same_exploit_vs_fixed_must_fail
+pins:
+  anchor: 0.32.2
+  litesvm: 0.17.0
+  rust: 1.97.1
+attribution:
+  repo: z0neSec/solsec-workshop
+  license: MIT
+  sha: 15074547581430b866b81c56dd1fde98e9a7e13d
+  author: z0neSec

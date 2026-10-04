@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 220" role="img" aria-label="Solana account anatomy">
+  <rect x="8" y="8" width="624" height="204" rx="10" fill="none" stroke="#8b949e" stroke-width="2"/>
+  <text x="24" y="36" fill="#e6edf3" font-family="monospace" font-size="15">SOLANA ACCOUNT: everything a program is handed</text>
+  <g font-family="monospace" font-size="13">
+    <rect x="24" y="52" width="180" height="56" rx="6" fill="none" stroke="#58a6ff" stroke-width="1.5"/>
+    <text x="34" y="74" fill="#58a6ff">address: 32 bytes</text>
+    <text x="34" y="94" fill="#8b949e">who this is</text>
+    <rect x="216" y="52" width="150" height="56" rx="6" fill="none" stroke="#58a6ff" stroke-width="1.5"/>
+    <text x="226" y="74" fill="#58a6ff">lamports: u64</text>
+    <text x="226" y="94" fill="#8b949e">native balance</text>
+    <rect x="378" y="52" width="150" height="56" rx="6" fill="none" stroke="#58a6ff" stroke-width="1.5"/>
+    <text x="388" y="74" fill="#58a6ff">data: bytes</text>
+    <text x="388" y="94" fill="#8b949e">anything at all</text>
+    <rect x="24" y="120" width="280" height="64" rx="6" fill="none" stroke="#d29922" stroke-width="2"/>
+    <text x="34" y="144" fill="#d29922">owner: pubkey  (ONLY writer)</text>
+    <text x="34" y="164" fill="#8b949e">says who is responsible</text>
+    <rect x="316" y="120" width="212" height="64" rx="6" fill="none" stroke="#8b949e" stroke-width="1.5" stroke-dasharray="5 4"/>
+    <text x="326" y="144" fill="#8b949e">executable: bool</text>
+    <text x="326" y="164" fill="#8b949e">is this a program?</text>
+  </g>
+  <text x="24" y="204" fill="#e6edf3" font-family="monospace" font-size="12">caption: owner is the only writer. Every other byte is untrusted until checked.</text>
+</svg>

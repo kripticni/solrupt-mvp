@@ -1,0 +1,201 @@
+{
+  "address": "392HD9NFyhZpR45PcBAJRNrQZ1EAifUSJARCDxW3oEmK",
+  "metadata": {
+    "name": "l7_overflow",
+    "version": "0.1.0",
+    "spec": "0.1.0",
+    "description": "Arena L7: integer overflow (port of z0neSec integer-overflow, MIT)"
+  },
+  "instructions": [
+    {
+      "name": "initialize_vault",
+      "docs": [
+        "Open a vault's books for demonstration."
+      ],
+      "discriminator": [
+        48,
+        191,
+        163,
+        44,
+        71,
+        129,
+        63,
+        164
+      ],
+      "accounts": [
+        {
+          "name": "vault",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  118,
+                  97,
+                  117,
+                  108,
+                  116
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "authority"
+              }
+            ]
+          }
+        },
+        {
+          "name": "authority",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "initial_balance",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "withdraw_insecure",
+      "docs": [
+        "",
+        "## INSECURE: bare subtraction on a release build",
+        "",
+        "Attack scenario:",
+        "1. Victim vault holds 100 units.",
+        "2. Attacker calls `withdraw_insecure` with amount = 101.",
+        "3. In BPF release, `100 - 101` wraps to u64::MAX instead of failing.",
+        "4. Attacker owns more units than exist.",
+        "",
+        "Note for the careful reader: this wrap happens because BPF programs",
+        "compile in release, where plain `-` wraps instead of panicking. The",
+        "bug being taught IS that wrap.",
+        ""
+      ],
+      "discriminator": [
+        52,
+        106,
+        127,
+        121,
+        117,
+        233,
+        11,
+        29
+      ],
+      "accounts": [
+        {
+          "name": "vault",
+          "writable": true
+        },
+        {
+          "name": "authority",
+          "signer": true
+        }
+      ],
+      "args": [
+        {
+          "name": "amount",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "withdraw_secure",
+      "docs": [
+        "",
+        "## SECURE: checked arithmetic fails loudly instead of wrapping",
+        "",
+        "`checked_sub` returns None on underflow, and the `ok_or` turns it into",
+        "InsufficientFunds. Same shape, same inputs. The 101 unit withdrawal",
+        "from a 100 unit vault refuses instead of minting quintillions.",
+        ""
+      ],
+      "discriminator": [
+        22,
+        173,
+        114,
+        7,
+        175,
+        179,
+        168,
+        58
+      ],
+      "accounts": [
+        {
+          "name": "vault",
+          "writable": true
+        },
+        {
+          "name": "authority",
+          "signer": true
+        }
+      ],
+      "args": [
+        {
+          "name": "amount",
+          "type": "u64"
+        }
+      ]
+    }
+  ],
+  "accounts": [
+    {
+      "name": "Vault",
+      "discriminator": [
+        211,
+        8,
+        232,
+        43,
+        2,
+        152,
+        117,
+        119
+      ]
+    }
+  ],
+  "errors": [
+    {
+      "code": 6000,
+      "name": "InsufficientFunds",
+      "msg": "Insufficient funds in the vault"
+    }
+  ],
+  "types": [
+    {
+      "name": "Vault",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "authority",
+            "docs": [
+              "Who the books belong to."
+            ],
+            "type": "pubkey"
+          },
+          {
+            "name": "balance",
+            "docs": [
+              "Bookkeeping balance (watch it wrap)."
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "bump",
+            "docs": [
+              "PDA bump seed."
+            ],
+            "type": "u8"
+          }
+        ]
+      }
+    }
+  ]
+}

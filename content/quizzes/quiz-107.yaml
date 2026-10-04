@@ -1,0 +1,41 @@
+# Quiz for lesson 107-overflow-math. Answers are SERVER-ONLY (see quiz-101 header).
+id: quiz-107
+lesson: 107-overflow-math
+points_total: 15
+questions:
+  - id: q1
+    q: "A vault holds 100 units. The instruction runs `vault.balance - amount` with amount 101 on a BPF release build. What happens?"
+    choices:
+      - "The program panics and the transaction fails"
+      - "The balance wraps to u64::MAX: 18446744073709551615"
+      - "The balance saturates at 0 and stays there"
+      - "The runtime rejects the transaction before it runs"
+    answer: 1
+    points: 5
+    severity: Critical
+    explain: "Release builds wrap silently. Debug builds panic. Solana programs run release BPF, so the author testing in debug never sees the wrap the attacker exploits."
+    review: "Debug panics, release wraps"
+  - id: q2
+    q: "Why didn't the developer catch this in testing?"
+    choices:
+      - "Tests cannot cover arithmetic instructions"
+      - "Local tests usually run debug builds, which panic instead of wrapping. The release only behavior hides until deploy"
+      - "The wrapping only happens on mainnet, never locally"
+      - "Anchor rewrites subtraction during tests"
+    answer: 1
+    points: 5
+    severity: High
+    explain: "The debug/release split is the trap: green tests, wrapping mainnet. Test the release profile, or better, make the wrap impossible with checked math."
+    review: "Debug panics, release wraps"
+  - id: q3
+    q: "What is the fix, and what role does `overflow-checks = true` play?"
+    choices:
+      - "checked_sub for the fix; overflow-checks is defense in depth, never the fix itself"
+      - "overflow-checks for the fix; checked_sub is only style"
+      - "Wrapping add for the fix; overflow-checks is irrelevant"
+      - "Saturating math for the fix; overflow-checks causes the bug"
+    answer: 0
+    points: 5
+    severity: High
+    explain: "checked_* makes underflow a loud error at the exact operation. The profile flag is a backstop for code you missed. It cannot replace explicit checks."
+    review: "The fix (one method)"

@@ -1,0 +1,26 @@
+[toolchain]
+anchor_version = "0.32.2"
+solana_version = "2.3.0"
+
+[features]
+resolution = true
+skip-lint = false
+
+[programs.localnet]
+l1_signer = "JA3qiz3KpQkEtL4bMLWoWazcSHYYrUHyKRg5UgtVkzuA"
+l2_owner = "Cm1MRpNCGCVXbft2uKoqhQ81Huw3uUCVnxzBEHqUYwNz"
+l3_cpi = "HuKUtxW8Y6BWhfyXftZMS1BqENagBJzZFWMzjhx1tCFf"
+l4_cosplay = "9QrjdkjrnFXC2kaqB7pb3zUMSDRDmQZrQysiCYRvERZA"
+l5_match = "8BGViQLBtPwZccPwccmTG7QCEnVekmWcitnzM6hydx2J"
+l6_vault = "2UDFFUhGnvuvSmzTaUC726TmB4MEQVGEVR79v3NApXib"
+l7_overflow = "392HD9NFyhZpR45PcBAJRNrQZ1EAifUSJARCDxW3oEmK"
+
+[registry]
+url = "https://api.apr.dev"
+
+[provider]
+cluster = "localnet"
+wallet = "~/.config/solana/id.json"
+
+[scripts]
+test = "cargo test --manifest-path ./verifier-rs/Cargo.toml"

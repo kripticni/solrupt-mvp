@@ -1,0 +1,41 @@
+# Quiz for lesson 103-cpi-deputy. Answers are SERVER-ONLY (see quiz-101 header).
+id: quiz-103
+lesson: 103-cpi-deputy
+points_total: 15
+questions:
+  - id: q1
+    q: "A release instruction invokes the program account it was handed, then records tokens as moved when the call returns Ok. Where does the callee's address actually come from?"
+    choices:
+      - "It is hardcoded in the program binary"
+      - "The transaction author chooses which account fills that slot"
+      - "The runtime resolves it from the instruction name"
+      - "The Token program delegates it at deploy time"
+    answer: 1
+    points: 5
+    severity: High
+    explain: "Every account, including the callee, is caller supplied. The program names the slot; the transaction author fills it. An unchecked slot is an attacker chosen callee."
+    review: "Programs calling programs"
+  - id: q2
+    q: "Why does invoking the room program's own `ping` prove the arbitrary CPI bug?"
+    choices:
+      - "Ping drains the vault directly through the System program"
+      - "Ping answers Ok to anything, exactly like an attacker's fake token program would. Books move with no real transfer"
+      - "Ping forges a Token program signature on the release"
+      - "Ping re signs the transaction as the vault authority"
+    answer: 1
+    points: 5
+    severity: Critical
+    explain: "The bug is trusting a foreign return code. Any always Ok callee triggers it; ping is the hermetic stand in so the lab needs no second program. A real attacker deploys their own."
+    review: "The bug"
+  - id: q3
+    q: "What does `Program<'info, Token>` prove before the instruction body runs, and what must the body still do?"
+    choices:
+      - "It proves the caller signed; the body may then trust any return code"
+      - "It proves key == the real Token program id plus executable; the body must still perform a real transfer before updating books"
+      - "It proves the vault is PDA-derived; the body may skip the transfer"
+      - "It proves the amount fits in u64; the body must still check the signer"
+    answer: 1
+    points: 5
+    severity: High
+    explain: "The type verifies WHO runs; only a real transfer proves WHAT happened. Books update after real movement, never on a trusted return code."
+    review: "The fix (name the callee in the type)"

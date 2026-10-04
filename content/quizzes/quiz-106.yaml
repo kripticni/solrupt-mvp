@@ -1,0 +1,41 @@
+# Quiz for lesson 106-vault-capstone. Answers are SERVER-ONLY (see quiz-101 header).
+id: quiz-106
+lesson: 106-vault-capstone
+points_total: 15
+questions:
+  - id: q1
+    q: "The capstone withdraw takes a vault and a caller account. Which verification does it perform on the caller?"
+    choices:
+      - "Signer plus authority equality"
+      - "has_one against the vault"
+      - "None at all. The caller account is never read"
+      - "PDA derivation of the caller address"
+    answer: 2
+    points: 5
+    severity: Critical
+    explain: "There is no check to bypass. The door was never built. The hardest bugs to spot are absent lines, which is why auditors read structs before bodies."
+    review: "The bug (all of them)"
+  - id: q2
+    q: "Why does the verifier fail a partial drain even though funds moved?"
+    choices:
+      - "Partial drains corrupt the ledger irreversibly"
+      - "The capstone tests full composition: 100% in one transaction, remainder zero"
+      - "The secure instruction only refuses full amounts"
+      - "LiteSVM cannot represent partial balances"
+    answer: 1
+    points: 5
+    severity: Medium
+    explain: "Challenge rooms grade the mission, not the motion. Moving some funds proves the primitive; emptying the vault proves the raid."
+    review: "Challenge rooms are a different game"
+  - id: q3
+    q: "The secure withdraw combines which two halves from earlier lessons?"
+    choices:
+      - "PDA seeds plus CPI whitelisting"
+      - "Signer consent (101) plus the authority equality bind (105)"
+      - "Checked arithmetic plus overflow profiles"
+      - "Discriminator plus token mint verification"
+    answer: 1
+    points: 5
+    severity: High
+    explain: "Defense composes the same way attacks do: consent without binding is L5's bug, binding without consent is L1's. The secure struct carries both."
+    review: "The bug (all of them)"

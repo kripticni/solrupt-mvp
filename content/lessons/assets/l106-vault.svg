@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 250" role="img" aria-label="Vault raid capstone">
+  <rect x="8" y="8" width="624" height="234" rx="10" fill="none" stroke="#8b949e" stroke-width="2"/>
+  <text x="24" y="36" fill="#e6edf3" font-family="monospace" font-size="15">THE DOOR THAT WAS NEVER BUILT</text>
+  <g font-family="monospace" font-size="13">
+    <rect x="24" y="52" width="270" height="66" rx="6" fill="none" stroke="#8b949e" stroke-width="1.5" stroke-dasharray="5 4"/>
+    <text x="34" y="76" fill="#8b949e">101: signer?  --  absent</text>
+    <text x="34" y="98" fill="#8b949e">caller is AccountInfo</text>
+    <rect x="24" y="126" width="270" height="66" rx="6" fill="none" stroke="#8b949e" stroke-width="1.5" stroke-dasharray="5 4"/>
+    <text x="34" y="150" fill="#8b949e">105: binding? -- absent</text>
+    <text x="34" y="172" fill="#8b949e">no compare, no has_one</text>
+    <text x="306" y="130" fill="#e6edf3" font-size="18">--&gt;</text>
+    <rect x="336" y="52" width="280" height="140" rx="6" fill="none" stroke="#f85149" stroke-width="2"/>
+    <text x="346" y="78" fill="#f85149">raid: one tx, 100%</text>
+    <text x="346" y="100" fill="#e6edf3">name any vault</text>
+    <text x="346" y="122" fill="#e6edf3">take everything</text>
+    <text x="346" y="144" fill="#8b949e">remainder 0 or fail</text>
+    <text x="346" y="172" fill="#3fb950">secure: Signer + ==</text>
+  </g>
+</svg>

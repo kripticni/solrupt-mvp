@@ -1,0 +1,28 @@
+# L4 room: type cosplay (19 §4.3 challenge schema).
+id: l4-cosplay
+title: "Wrong costume: claim as a user you are not"
+tier: Hard
+points: 300
+prereq: l3-cpi
+program:
+  vuln: content/programs/l4-cosplay/src/lib.rs
+  fixed: content/programs/l4-cosplay/src/lib.rs
+  so: content/programs/l4-cosplay/l4_cosplay.so
+  so_digest: a59c491b780cdf034c074de2bc8551b82d9d9ab404665f99c9c774235578f25e # anchor build 2026-10-04, solana 2.3.0 + anchor 0.32.2
+template: content/programs/l4-cosplay/exploit-template.txt
+hints:
+  - "User and Note share the same first 32 bytes. The insecure instruction reads bytes, never types. Which account can you sew from your own key?"
+  - "register_note writes your pubkey at exactly the offset User.authority sits at. Pass the Note where a User belongs and sign as yourself."
+  - "The secure struct types the account as Account<User>: discriminator plus owner plus shape, all verified before the body runs. Same bytes, different verdict."
+checks:
+  pass_when: ledger_claims_incremented_on_wrong_type
+  negative_control: same_exploit_vs_fixed_must_fail
+pins:
+  anchor: 0.32.2
+  litesvm: 0.17.0
+  rust: 1.97.1
+attribution:
+  repo: z0neSec/solsec-workshop
+  license: MIT
+  sha: 15074547581430b866b81c56dd1fde98e9a7e13d
+  author: z0neSec

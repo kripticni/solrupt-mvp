@@ -1,0 +1,70 @@
+Retry turn — landing a concrete diff, not re-reading history.[0m
+> build · muse-spark-1.3-contributor-free
+[0m
+
+S6 is active — grabbing its brief then landing an artifact.
+Brief path miss noted — landing the artifact first per first-action rule.
+Artifact written; running the probe to verify it works.
+[0m$ [0mbash notes/s6-verify-state-probe.sh 2>&1 | head -50
+=== S6-VERIFY-STATE 2026-10-04T01:19:35Z ===
+--- git ---
+a2b6e73 spacestation: entirety on gitea (archive reorg + mvp + web3-security-platform, WIP)
+a24fd62 loop: SUBAGENTS roster + depth 3 pinned + delegation pointer
+bcb6923 Add H02 submission templates: evidence log + disclosure + deck skeleton
+b9516da File H02 brief: official agenda, submission spec, NERV reply record
+2d74d31 Retire sweep non-claim: roster manifest live, loop in census
+ M ../../../.gitignore
+ M ../../../README.md
+ M AGENTS.md
+ M CURRENT.md
+ M GOALS.md
+ M SUBAGENTS.md
+ M hooks-registry.json
+ M notes/mvp-scope-2026-10-03.md
+ M queue.txt
+ M run.conf
+ M ../../../web3-security-platform/08-decisions.md
+ M ../../../web3-security-platform/11-primitives-and-build-plan.md
+ M ../../../web3-security-platform/README.md
+?? ../../../.gitea/
+?? ../../.dockerignore
+?? ../../Dockerfile
+?? ../../PINS.md
+?? ../../TROUBLESHOOTING.md
+?? ../../VENDOR_NOTICES
+?? ../../apps/
+--- app dir? ---
+AGENTS.md
+CURRENT.md
+engine-run.log
+GOALS.md
+hooks
+hooks-registry.json
+LOOP_LOG.md
+notes
+opencode.json
+probes
+queue.txt
+run.conf
+run-loop.sh
+s6-gate-probe-20261004.sh
+sandbox.sh
+scripts
+STATUS.json
+SUBAGENTS.md
+token-ledger.json
+token-turns.jsonl
+--- verifier / rooms / .so hunt (top 3 levels) ---
+/home/aleksic/spacestation/mvp/loops/research/notes/s6-fresh-verify-2026-10-04.md
+
+[exit:0]
+[0m
+Probe works and shows no verifier/rooms yet — checking S6 living notes to attach findings.
+[0m✱ [0mGlob "notes/*"
+Probe script is landed and green. Per note discipline (one living probe note per goal), appending findings to the existing S6 living note rather than creating a new one.
+[91m[1mError: [0m{
+  "error": {
+    "message": "provider exhausted retries (3 attempts, last status 429, retry_after_ms=81605000)"
+  },
+  "sessionID": "ses_18db2ece139c33cd0009"
+}

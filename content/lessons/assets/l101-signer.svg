@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 250" role="img" aria-label="Signer versus pubkey">
+  <rect x="8" y="8" width="624" height="234" rx="10" fill="none" stroke="#8b949e" stroke-width="2"/>
+  <text x="24" y="36" fill="#e6edf3" font-family="monospace" font-size="15">THE CHECK THAT IS NOT A CHECK</text>
+  <g font-family="monospace" font-size="13">
+    <rect x="24" y="52" width="270" height="52" rx="6" fill="none" stroke="#58a6ff" stroke-width="1.5"/>
+    <text x="34" y="74" fill="#58a6ff">vault.authority (stored)</text>
+    <text x="34" y="94" fill="#8b949e">Alice's pubkey, on-chain</text>
+    <rect x="24" y="116" width="270" height="52" rx="6" fill="none" stroke="#58a6ff" stroke-width="1.5"/>
+    <text x="34" y="138" fill="#58a6ff">authority.key() (passed)</text>
+    <text x="34" y="158" fill="#8b949e">typed by the attacker</text>
+    <text x="306" y="120" fill="#e6edf3" font-size="20">==</text>
+    <text x="340" y="112" fill="#3fb950" font-size="13">passes: same bytes</text>
+    <text x="340" y="132" fill="#f85149" font-size="13">proves: nothing</text>
+    <rect x="24" y="180" width="592" height="46" rx="6" fill="none" stroke="#3fb950" stroke-width="2"/>
+    <text x="34" y="200" fill="#3fb950">is_signer (runtime): private key signed THIS transaction</text>
+    <text x="34" y="218" fill="#8b949e">the only proof of consent. Signer enforces it before the body</text>
+  </g>
+</svg>

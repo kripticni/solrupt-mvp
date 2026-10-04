@@ -1,0 +1,9 @@
+const index = 4;
+let component_cache;
+const component = async () => component_cache ??= (await import('./_page.svelte-DQbxeh4m.js')).default;
+const imports = ["_app/immutable/nodes/4.XvXtuANC.js","_app/immutable/chunks/CyJhm80y.js","_app/immutable/chunks/B_uqRuMo.js","_app/immutable/chunks/CVvanCqv.js","_app/immutable/chunks/CZLB95R_.js","_app/immutable/chunks/DCH2VEDy.js","_app/immutable/chunks/CrVmoB71.js","_app/immutable/chunks/CqJf0Cuz.js"];
+const stylesheets = [];
+const fonts = [];
+
+export { component, fonts, imports, index, stylesheets };
+//# sourceMappingURL=4-CU3ElGUM.js.map

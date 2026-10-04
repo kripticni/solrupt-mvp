@@ -1,0 +1,707 @@
+@layer reset, tokens, base, components;
+
+@layer reset {
+	*,
+	*::before,
+	*::after {
+		box-sizing: border-box;
+	}
+}
+
+@layer tokens {
+	:root {
+		--bg: #0d1117;
+		--panel: #161b22;
+		--line: #30363d;
+		--text: #e6edf3;
+		--muted: #8b949e;
+		--accent: #58a6ff;
+		--green: #3fb950;
+		--warn: #d29922;
+		--red: #f85149;
+		--sol-a: #9945ff;
+		--sol-b: #14f195;
+		--ink: #0a0d12;
+		--chip: #21262d;
+		--font-mono: ui-monospace, SFMono-Regular, Consolas, Liberation Mono, Menlo, monospace;
+		--r-sm: 4px;
+		--r-md: 12px;
+		--r-pill: 20px;
+		--shadow: none;
+		--measure: 72ch;
+		--prism: linear-gradient(90deg, #dc1fff, #9945ff 12%, #9945ff 60%, #14f195);
+	}
+}
+
+@layer base {
+	html {
+		background: var(--bg);
+		color-scheme: dark;
+		scrollbar-color: var(--line) transparent;
+		scrollbar-width: thin;
+	}
+	/* Themed scrollbars: thin dark thumb on transparent track so the
+	   container bg (page, panel, ink) shows through. Firefox uses the
+	   two properties above + below; Chromium uses the ::-webkit rules.
+	   Thumb = --line, hover = --muted. No hiding, no animation. */
+	* {
+		scrollbar-color: var(--line) transparent;
+		scrollbar-width: thin;
+	}
+	::-webkit-scrollbar {
+		width: 12px;
+		height: 12px;
+	}
+	::-webkit-scrollbar-track {
+		background: transparent;
+	}
+	::-webkit-scrollbar-thumb {
+		background-color: var(--line);
+		border-radius: 8px;
+		border: 3px solid transparent;
+		background-clip: padding-box;
+		min-height: 40px;
+	}
+	::-webkit-scrollbar-thumb:hover {
+		background-color: var(--muted);
+		background-clip: padding-box;
+		border: 3px solid transparent;
+	}
+	::-webkit-scrollbar-corner {
+		background: transparent;
+	}
+	/* Code/terminal horizontal scrollers stay slimmer than the page rail. */
+	pre::-webkit-scrollbar,
+	.codepane::-webkit-scrollbar,
+	.termbar::-webkit-scrollbar {
+		height: 8px;
+		width: 8px;
+	}
+	@media (forced-colors: active) {
+		* {
+			scrollbar-color: auto;
+			scrollbar-width: auto;
+		}
+	}
+	body {
+		display: flex;
+		flex-direction: column;
+		min-height: 100vh;
+		background: var(--bg);
+		color: var(--text);
+		font-family:
+			-apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+		font-size: 16px;
+		line-height: 1.65;
+		margin: 0;
+		padding: 0;
+	}
+	a {
+		color: var(--accent);
+	}
+	a:hover {
+		color: var(--text);
+	}
+	/* v1.0 §9: visible 2px accent ring on every button and link, keyboard path.
+	   Instant (never animated); reduced-motion already kills transitions below. */
+	a:focus-visible,
+	button:focus-visible {
+		outline: 2px solid var(--accent);
+		outline-offset: 2px;
+	}
+	h1 {
+		font-size: 32px;
+		line-height: 1.25;
+		margin: 0 0 1rem;
+		font-weight: 700;
+	}
+	h2 {
+		font-size: 24px;
+		font-weight: 700;
+		margin: 2rem 0 0.75rem;
+		border-bottom: 1px solid var(--line);
+		padding-bottom: 0.4rem;
+	}
+	h3 {
+		font-size: 19px;
+		font-weight: 600;
+		margin: 0 0 0.5rem;
+	}
+	p,
+	li {
+		max-width: var(--measure);
+	}
+	.muted {
+		color: var(--muted);
+	}
+	code,
+	pre {
+		font-family: var(--font-mono);
+	}
+	pre {
+		background: var(--ink);
+		border: 1px solid var(--line);
+		border-radius: var(--r-sm);
+		padding: 1rem 1.25rem;
+		overflow-x: auto;
+		font-size: 14px;
+		line-height: 1.65;
+		/* NOTE: content-visibility intentionally ABSENT here. It caused
+		   layout thrash inside scroll containers (memory climb on scroll).
+		   Containment lives on .codepane (bounded) + .panel instead. */
+	}
+	code {
+		background: var(--chip);
+		padding: 1px 8px;
+		border-radius: var(--r-sm);
+		font-size: 0.9em;
+	}
+	pre code {
+		background: none;
+		padding: 0;
+	}
+	/* Bounded panes REVERTED: the 70vh internal scroller composited a giant
+	   text layer that re-rasterized per scroll frame (memory climb). Panes now
+	   flow with the page: one scroll context, nothing nested. The Fixed pane
+	   still renders zero nodes until opened (details-gated). */
+	.codepane {
+		max-height: none;
+		overflow-x: auto;
+	}
+	.codepane-wrap {
+		margin: 1rem 0;
+	}
+	.codepane-wrap > summary {
+		cursor: pointer;
+		color: var(--muted);
+		font-size: 14px;
+		padding: 0.6rem 0;
+	}
+	.codepane-wrap > summary:hover {
+		color: var(--accent);
+	}
+	.tok-com {
+		color: var(--muted);
+	}
+	.tok-kw {
+		color: var(--accent);
+	}
+	.tok-str {
+		color: var(--warn);
+	}
+	.tok-mac {
+		color: var(--text);
+	}
+	.tok-fn {
+		color: var(--text);
+		font-weight: 700;
+	}
+	.tok-num {
+		color: var(--text);
+	}
+}
+
+@layer components {
+	.wrap {
+		max-width: 960px;
+		margin: 0 auto;
+		padding: 0 1.5rem 4rem;
+	}
+	.topnav {
+		position: sticky;
+		top: 0;
+		z-index: 10;
+		display: flex;
+		gap: 1.5rem;
+		align-items: baseline;
+		padding: 1rem 1.5rem;
+		background: var(--panel);
+		border-bottom: 1px solid var(--line);
+		font-size: 14px;
+	}
+	.topnav .brand {
+		color: var(--text);
+		font-weight: 700;
+		text-decoration: none;
+		margin-right: auto;
+		display: inline-flex;
+		align-items: center;
+		gap: 0.5rem;
+	}
+	.topnav .brand img {
+		width: 24px;
+		height: 24px;
+	}
+	.topnav a:not(.brand) {
+		color: var(--muted);
+		text-decoration: none;
+	}
+	.topnav a:not(.brand):hover {
+		color: var(--accent);
+	}
+	/* v1.0 §6.6: nav sets 14px. The CTA-sized ghost button inherits 16px/large
+	   padding inside the bar, so scope it back to nav sizing. */
+	.topnav .btn-ghost {
+		font-size: 14px;
+		padding: 0.4rem 0.9rem;
+		margin: 0;
+	}
+	/* v1.0 §15: below 720px the nav collapses to brand + Menu (text button, no
+	   hamburger glyph). Desktop keeps the flat link row via display:contents. */
+	.topnav .menu-btn {
+		display: none;
+		background: transparent;
+		color: var(--text);
+		border: 1px solid var(--line);
+		border-radius: var(--r-sm);
+		font-size: 14px;
+		padding: 0.4rem 0.9rem;
+		cursor: pointer;
+	}
+	.topnav .links {
+		display: contents;
+	}
+	@media (max-width: 719px) {
+		.topnav {
+			flex-wrap: wrap;
+			align-items: center;
+		}
+		.topnav .menu-btn {
+			display: inline-block;
+		}
+		.topnav .links {
+			display: none;
+			flex-basis: 100%;
+			flex-direction: column;
+			align-items: stretch;
+			gap: 0.25rem;
+			padding-top: 0.5rem;
+		}
+		.topnav .links.open {
+			display: flex;
+		}
+		.topnav .links a {
+			padding: 0.6rem 0;
+		}
+	}
+	.hero {
+		padding: 4rem 0 2rem;
+	}
+	/* v1.0 §2: full-color master mark in the hero (header keeps the lockup).
+	   Clear space = node diameter on all sides; dark tile straight from the
+	   asset, never recolored, never shadowed. */
+	.hero-mark {
+		width: 56px;
+		height: 56px;
+		display: block;
+		margin: 0 0 1.5rem;
+	}
+	.hero p.lead {
+		font-size: 1.15rem;
+		color: var(--muted);
+	}
+	.panel {
+		background: var(--panel);
+		border: 1px solid var(--line);
+		border-radius: var(--r-md);
+		padding: 18px;
+		margin: 1rem 0;
+		content-visibility: auto;
+		contain-intrinsic-size: auto 200px;
+	}
+	.btn {
+		display: inline-block;
+		background: var(--prism);
+		color: var(--bg);
+		font-weight: 700;
+		border-radius: var(--r-sm);
+		padding: 0.7rem 1.6rem;
+		text-decoration: none;
+		border: none;
+		font-family: inherit;
+		font-size: 1rem;
+		cursor: pointer;
+		margin: 0.5rem 0.5rem 0.5rem 0;
+		transition:
+			transform 100ms ease-out,
+			filter 100ms ease-out,
+			box-shadow 100ms ease-out;
+	}
+	.btn:hover {
+		color: var(--bg);
+		box-shadow: 0 8px 32px rgba(20, 241, 149, 0.25);
+	}
+	.btn:active {
+		transform: scale(0.97);
+		filter: brightness(0.92);
+	}
+	.btn-ghost {
+		display: inline-block;
+		background: transparent;
+		color: var(--text);
+		border: 1px solid var(--line);
+		border-radius: var(--r-sm);
+		padding: 0.7rem 1.4rem;
+		text-decoration: none;
+		font-family: inherit;
+		font-size: 1rem;
+		cursor: pointer;
+	}
+	.btn-ghost:hover {
+		border-color: var(--accent);
+		color: var(--accent);
+	}
+	button {
+		font-family: inherit;
+	}
+	.termbar {
+		background: var(--ink);
+		border: 1px solid var(--line);
+		border-radius: var(--r-sm);
+		padding: 1rem 1.25rem;
+		margin: 1rem 0;
+		font-family: var(--font-mono);
+		font-size: 14px;
+		line-height: 1.65;
+		white-space: pre-wrap;
+	}
+	.termbar .ok {
+		color: var(--green);
+	}
+	.termbar .warn {
+		color: var(--warn);
+	}
+	.termbar .bad {
+		color: var(--red);
+	}
+	.termwin {
+		margin: 2rem 0;
+	}
+	.steps {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+		gap: 1rem;
+		margin: 1rem 0 2rem;
+	}
+	.steps .panel {
+		margin: 0;
+	}
+	.steps h3 svg,
+	.btn svg,
+	.btn-ghost svg,
+	p svg {
+		vertical-align: -3px;
+	}
+	.btn svg {
+		margin-right: 6px;
+	}
+	/* §6.3 verdict banner: full-width strip, 3px TOP accent bar, mono, timestamp.
+	   Side-only stripes are banned. No green without the negative-control line. */
+	.verdict-pass {
+		border: 1px solid var(--line);
+		border-top: 3px solid var(--green);
+		border-radius: var(--r-sm);
+		padding: 0.9rem 1.2rem;
+		margin: 1rem 0;
+		font-size: 14px;
+	}
+	.verdict-fail,
+	.verdict-error {
+		border: 1px solid var(--line);
+		border-top: 3px solid var(--red);
+		border-radius: var(--r-sm);
+		padding: 0.9rem 1.2rem;
+		margin: 1rem 0;
+		font-size: 14px;
+	}
+	.badge {
+		font-size: 13px;
+		border: 1px solid var(--line);
+		border-radius: var(--r-pill);
+		padding: 4px 14px;
+		color: var(--muted);
+	}
+	input,
+	textarea,
+	select {
+		background: var(--bg);
+		color: var(--text);
+		border: 1px solid var(--line);
+		border-radius: var(--r-sm);
+		font-family: inherit;
+		font-size: 0.95rem;
+		padding: 0.6rem 0.8rem;
+		width: 100%;
+		max-width: var(--measure);
+		margin: 0.4rem 0;
+	}
+	input:focus,
+	textarea:focus,
+	select:focus {
+		outline: 2px solid var(--accent);
+		border-color: var(--accent);
+	}
+	label {
+		display: block;
+		margin-top: 1rem;
+		color: var(--muted);
+		font-size: 13px;
+	}
+	/* v1.0 §15: >=1024 3-up, 720-1023 2-up, <720 stacked. Explicit columns,
+	   not auto-fill luck: the hero trio wrapped 2+1 at desktop width before. */
+	.cards {
+		display: grid;
+		grid-template-columns: 1fr;
+		gap: 1rem;
+		margin: 1rem 0;
+	}
+	@media (min-width: 720px) {
+		.cards {
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+		}
+	}
+	@media (min-width: 1024px) {
+		.cards {
+			grid-template-columns: repeat(3, minmax(0, 1fr));
+		}
+	}
+	.cards .panel {
+		margin: 0;
+	}
+	/* v1.0 §3.1 + §10: the prism gradient is reserved for the logo, the primary
+	   Run button, and one hero accent; one gradient per viewport. Listing cards
+	   (lesson/room pickers) therefore use secondary CTAs even when marked up
+	   with .btn: same destinations, no extra gradient. To promote a card CTA
+	   to primary, amend UX_PREMIUM first. */
+	.cards .panel .btn {
+		background: transparent;
+		border: 1px solid var(--line);
+		color: var(--text);
+		box-shadow: none;
+	}
+	.cards .panel .btn:hover {
+		border-color: var(--accent);
+		color: var(--accent);
+		box-shadow: none;
+	}
+	.prose {
+		max-width: var(--measure);
+	}
+	/* Lesson callout: the one-line result (e.g. Wormhole $320M) set as `>` in
+	   lesson markdown. Muted panel quote, never a score badge, never an icon. */
+	.prose blockquote {
+		margin: 1rem 0;
+		padding: 0.8rem 1.2rem;
+		background: var(--panel);
+		border: 1px solid var(--line);
+		border-left: 3px solid var(--warn);
+		border-radius: var(--r-sm);
+		color: var(--text);
+	}
+	.prose blockquote p {
+		margin: 0;
+	}
+	/* Lesson diagrams (original SVG, content/lessons/assets): full measure,
+	   capped height, panel backdrop so strokes read on the dark theme.
+	   Scoped to main so the topnav logo is untouched. */
+	main img[src$=".svg"] {
+		display: block;
+		max-width: 100%;
+		height: auto;
+		margin: 1rem 0;
+		border: 1px solid var(--line);
+		border-radius: var(--r-sm);
+		background: var(--panel);
+		padding: 0.5rem;
+	}
+	/* Q&A checks: question cards with inline radio rows. Explicit rows
+	   (never bare labels) so choice text cannot split around the input. */
+	.quiz fieldset {
+		border: 1px solid var(--line);
+		border-radius: var(--r-sm);
+		background: var(--panel);
+		padding: 1rem 1.2rem;
+		margin: 1rem 0;
+	}
+	.quiz legend {
+		font-weight: 600;
+		padding: 0 0.5rem;
+	}
+	.quiz label {
+		display: flex;
+		align-items: baseline;
+		gap: 0.6rem;
+		margin-top: 0.6rem;
+		cursor: pointer;
+	}
+	.quiz input[type="radio"] {
+		flex: none;
+		width: auto;
+		margin: 0;
+		accent-color: var(--accent);
+	}
+	/* Lesson path navigation: prev / path / next in one row. */
+	.lesson-nav {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		gap: 1rem;
+		margin: 2rem 0 1rem;
+	}
+	/* Quiz island: the shared block above owns fieldset/legend/radio geometry.
+	   This amendment keeps choice labels at body-size text: without it they
+	   inherit the global 13px muted form-label rule and read as hints. */
+	.quiz fieldset label {
+		color: var(--text);
+		font-size: 16px;
+	}
+	/* v1.0 §6.1: disabled buttons read panel + muted with no click affordance. */
+	.btn:disabled,
+	.btn-ghost:disabled {
+		background: var(--panel);
+		color: var(--muted);
+		border: 1px solid var(--line);
+		box-shadow: none;
+		cursor: not-allowed;
+	}
+	/* v1.0 §7.1 + §15: exploit editor and terminal sit side by side at >=1024px,
+	   stacked below. Grid children must allow shrink or `pre` forces overflow. */
+	.lab-side {
+		display: grid;
+		grid-template-columns: minmax(0, 1fr);
+		gap: 1rem;
+		margin: 1rem 0;
+	}
+	.lab-side > section {
+		min-width: 0;
+	}
+	.lab-side h2 {
+		margin-top: 0;
+	}
+	@media (min-width: 1024px) {
+		.lab-side {
+			grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+			align-items: start;
+		}
+	}
+	/* UX_PREMIUM §4 (THM lesson): the victim target never scrolls away from
+	   the editor. Plain sticky, no shadow, no animation. */
+	.sticky-target {
+		position: sticky;
+		top: 76px;
+		z-index: 5;
+	}
+	/* v1.0 §6.4: hash prefix + copy + re-verify must survive 360px. Buttons drop
+	   below the hash instead of squeezing beside it. */
+	.hashrow {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: 0.5rem 0.75rem;
+	}
+	.hashrow code {
+		overflow-wrap: anywhere;
+	}
+	.board-rows {
+		font-family: var(--font-mono);
+		font-size: 14px;
+		padding-left: 0;
+		list-style: none;
+	}
+	.board-rows li {
+		padding: 10px 0;
+		border-bottom: 1px solid var(--line);
+	}
+	.board-rows .rank {
+		color: var(--muted);
+	}
+	footer.site {
+		max-width: 960px;
+		margin: 0 auto;
+		padding: 2rem 1.5rem;
+		border-top: 1px solid var(--line);
+		color: var(--muted);
+		font-size: 13px;
+		text-align: center;
+	}
+	/* v1.0 §14 + §20.2: shimmer skeletons are banned in demo. Waits show a
+	   static mono status line; room-load carries a live mm:ss timer + Cancel
+	   past 10s (built wave-1). */
+	.loading-line {
+		font-family: var(--font-mono);
+		font-size: 14px;
+		color: var(--muted);
+		background: var(--ink);
+		border: 1px solid var(--line);
+		border-radius: var(--r-sm);
+		padding: 1rem 1.25rem;
+		margin: 1rem 0;
+	}
+	.reveal-1 {
+		animation: fadein 150ms ease-out;
+	}
+	.reveal-2 {
+		animation: fadein 150ms ease-out 150ms backwards;
+	}
+	.reveal-3 {
+		animation: fadein 150ms ease-out 300ms backwards;
+	}
+	@keyframes fadein {
+		from {
+			opacity: 0;
+		}
+		to {
+			opacity: 1;
+		}
+	}
+	main.wrap {
+		animation: fadein 150ms ease-out;
+	}
+	/* v1.0 §8 spirit: judges print proofs. White, black text, gray borders;
+	   nav/sound toggle never print. Dark theme stays mandatory on screen. */
+	@media print {
+		:root {
+			--bg: #ffffff;
+			--panel: #ffffff;
+			--line: #999999;
+			--text: #000000;
+			--muted: #333333;
+			--accent: #0000cc;
+			--ink: #f2f2f2;
+			--chip: #eeeeee;
+		}
+		html {
+			color-scheme: light;
+		}
+		.topnav,
+		footer.site {
+			display: none;
+		}
+		.wrap {
+			max-width: none;
+			padding: 0;
+		}
+		.btn,
+		.btn-ghost {
+			border: 1px solid #999999;
+			background: none;
+			color: #000000;
+			box-shadow: none;
+		}
+		pre,
+		.termbar,
+		.verdict-pass,
+		.verdict-fail,
+		.verdict-error {
+			break-inside: avoid;
+		}
+	}
+	@media (prefers-reduced-motion: reduce) {
+		*,
+		*::before,
+		*::after {
+			animation: none !important;
+			transition: none !important;
+		}
+	}
+}

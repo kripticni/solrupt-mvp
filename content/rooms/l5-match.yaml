@@ -1,0 +1,28 @@
+# L5 room: account data matching (19 §4.3 challenge schema).
+id: l5-match
+title: "Wrong vault: a valid signature on someone else's account"
+tier: Medium
+points: 200
+prereq: l4-cosplay
+program:
+  vuln: content/programs/l5-match/src/lib.rs
+  fixed: content/programs/l5-match/src/lib.rs
+  so: content/programs/l5-match/l5_match.so
+  so_digest: ede92fbd28ce4254623b2dca3c8f254e2f0ed98233e7746313078a6a97036445 # anchor build 2026-10-04, solana 2.3.0 + anchor 0.32.2
+template: content/programs/l5-match/exploit-template.txt
+hints:
+  - "Your signature is valid and the vault has funds. The program checks both facts, but never the link between them. Whose vault can you pass?"
+  - "The insecure struct holds a vault and a signer with no attribute between them. The secure one adds a single has_one. What relationship does it enforce?"
+  - "Pass the victim vault, sign as yourself, watch the balance move. Then run the same bytes at withdraw_secure and watch AuthorityMismatch refuse."
+checks:
+  pass_when: victim_balance_moved_by_stranger_signature
+  negative_control: same_exploit_vs_fixed_must_fail
+pins:
+  anchor: 0.32.2
+  litesvm: 0.17.0
+  rust: 1.97.1
+attribution:
+  repo: z0neSec/solsec-workshop
+  license: MIT
+  sha: 15074547581430b866b81c56dd1fde98e9a7e13d
+  author: z0neSec

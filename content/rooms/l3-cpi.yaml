@@ -1,0 +1,28 @@
+# L3 room: arbitrary CPI callee (19 §4.3 challenge schema).
+id: l3-cpi
+title: "Confused deputy: release on a fake callee"
+tier: Medium
+points: 200
+prereq: l2-owner
+program:
+  vuln: content/programs/l3-cpi/src/lib.rs
+  fixed: content/programs/l3-cpi/src/lib.rs
+  so: content/programs/l3-cpi/l3_cpi.so
+  so_digest: 15b235f85ca63a175d3b112e88b515687d2efadd688da94851328d8ac04793e1 # anchor build 2026-10-04, solana 2.3.0 + anchor 0.32.2
+template: content/programs/l3-cpi/exploit-template.txt
+hints:
+  - "The release instruction invokes a program account it was handed. Which program answers Ok to anything in this lab? Who chose it?"
+  - "The insecure struct types the callee as AccountInfo. The secure one names the expected program in the type itself. What does Program<Token> prove before your code runs?"
+  - "Pass the room program's own id as the callee: its ping answers Ok like an attacker's fake token program would. Then watch release_secure refuse the same shape."
+checks:
+  pass_when: vault_released_increased_without_token_movement
+  negative_control: same_exploit_vs_fixed_must_fail
+pins:
+  anchor: 0.32.2
+  litesvm: 0.17.0
+  rust: 1.97.1
+attribution:
+  repo: z0neSec/solsec-workshop
+  license: MIT
+  sha: 15074547581430b866b81c56dd1fde98e9a7e13d
+  author: z0neSec

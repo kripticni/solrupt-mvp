@@ -1,0 +1,19 @@
+# Local patches (TEMPORARY. Remove when the Solana platform ships cargo >= 1.85)
+
+Each subdirectory is either (a) upstream `.crate` bytes with ONLY
+`edition = "2024"` → `"2021"` (+ `rust-version` where the manifest demands 1.85),
+or (b) a minimal API-compatible shim where upstream cannot compile on our targets.
+
+| crate | kind | upstream version | changed |
+|---|---|---|---|
+| block-buffer 0.12.1 | (a) manifest-only | registry | edition, rust-version; req hybrid-array → =0.2.0 |
+| digest 0.11.3 | (a) manifest-only | registry | edition, rust-version; reqs crypto-common → =0.2 path-patch, ctutils → 0.3.0 |
+| blake3 1.8.7 | (a) manifest-only | registry | edition; reqs cpufeatures → =0.2.17→0.3.2 shim, ct_eq std-feature dropped, constant_time_eq → =0.3.1 |
+| cmov 0.4.6 | (a) manifest-only | registry | edition, rust-version |
+| ctutils 0.3.0 | (a) manifest-only | registry | edition, rust-version |
+| crypto-common 0.2.2 | (a) manifest-only | registry | edition, rust-version; req hybrid-array → =0.2.0 |
+| cpufeatures 0.3.2 | (b) SHIM | n/a (original code) | only the `new!` macro blake3 uses; detection always false (fail-safe: portable path) |
+
+No vendored crate carries copied upstream logic except the manifest flips above;
+the single exception (cpufeatures shim) is original code. Upstream LICENSE texts
+are retained inside each (a) directory; see VENDOR_NOTICES.

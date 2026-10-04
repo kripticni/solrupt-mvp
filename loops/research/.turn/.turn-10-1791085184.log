@@ -1,0 +1,6 @@
+[91m[1mError: [0m{
+  "error": {
+    "message": "provider exhausted retries (3 attempts, last status 429, retry_after_ms=73209000)"
+  },
+  "sessionID": "ses_18db367c735e34b20046"
+}

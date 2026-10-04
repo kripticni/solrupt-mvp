@@ -1,0 +1,37 @@
+import { k as attr } from './index-Dz89ki_T.js';
+import { h as html } from './html-FW6Ia4bL.js';
+import { Q as Quiz, L as LessonNav } from './LessonNav-Br09f-HK.js';
+import './escaping-CqgfEcN3.js';
+
+function _03_cpi_deputy_md($$renderer) {
+  $$renderer.push(`<h1>Lesson 101-3: CPI and the confused deputy (5 min)</h1> <h2>Programs calling programs</h2> <p>A Solana program can invoke another program mid-instruction: a
+cross-program invocation (CPI). The caller passes the callee’s address as an
+account, the runtime runs the callee, and the caller usually trusts the
+result. That trust is the whole attack surface: <strong>the caller names the callee, but the transaction author chooses which account fills that slot.</strong></p> <p>Diagram (on this page): without <code>Program&lt;Token></code> the callee is attacker-chosen, so the deputy is confused. This is what the picture proves: the arrow to the fake program exists only because the id was never verified.</p> <h2>The bug</h2> <pre class="language-rust">${html(`<code class="language-rust"><span class="token comment">// VULNERABLE: callee is an unchecked account</span>
+<span class="token keyword">pub</span> token_program<span class="token punctuation">:</span> <span class="token class-name">AccountInfo</span><span class="token operator">&lt;</span><span class="token lifetime-annotation symbol">'info</span><span class="token operator">></span><span class="token punctuation">,</span>
+<span class="token comment">// ...</span>
+<span class="token function">invoke</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>ix<span class="token punctuation">,</span> <span class="token operator">&amp;</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token operator">?</span><span class="token punctuation">;</span> <span class="token comment">// whoever we were handed runs; Ok is treated as "tokens moved"</span></code>`)}</pre> <p>The program invokes the handed address and records a release when the call
+returns Ok. In the wild the attacker deploys a fake token program that
+returns Ok to anything; in this lab the room program’s own <code>ping</code> plays that
+role so no second program must be deployed. Books move, tokens never do.
+Crema Finance lost about $9M to this class of trusted-spoofed-account bug.</p> <h2>The fix (name the callee in the type)</h2> <pre class="language-rust">${html(`<code class="language-rust"><span class="token keyword">pub</span> token_program<span class="token punctuation">:</span> <span class="token class-name">Program</span><span class="token operator">&lt;</span><span class="token lifetime-annotation symbol">'info</span><span class="token punctuation">,</span> <span class="token class-name">Token</span><span class="token operator">></span><span class="token punctuation">,</span></code>`)}</pre> <p><code>Program&lt;Token></code> proves key == the real Token program id (plus executable)
+before the body runs, and the secure body performs a REAL transfer, updating
+books only after real movement. The manual fallback is one explicit compare: <code>require!(key == spl_token::ID)</code>. Open the room and prove it: release on the
+fake callee, watch the books move, then run the same shape at the secure
+instruction and watch it refuse.</p>`);
+}
+const diagram = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NDAgMjYwIiByb2xlPSJpbWciIGFyaWEtbGFiZWw9IkNQSSBjb25mdXNlZCBkZXB1dHkiPgogIDxyZWN0IHg9IjgiIHk9IjgiIHdpZHRoPSI2MjQiIGhlaWdodD0iMjQ0IiByeD0iMTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzhiOTQ5ZSIgc3Ryb2tlLXdpZHRoPSIyIi8+CiAgPHRleHQgeD0iMjQiIHk9IjM2IiBmaWxsPSIjZTZlZGYzIiBmb250LWZhbWlseT0ibW9ub3NwYWNlIiBmb250LXNpemU9IjE1Ij5DT05GVVNFRCBERVBVVFk6IFdITyBQSUNLRUQgVEhFIENBTExFRT88L3RleHQ+CiAgPGcgZm9udC1mYW1pbHk9Im1vbm9zcGFjZSIgZm9udC1zaXplPSIxMyI+CiAgICA8cmVjdCB4PSIyNCIgeT0iNTIiIHdpZHRoPSIxMzAiIGhlaWdodD0iNTIiIHJ4PSI2IiBmaWxsPSJub25lIiBzdHJva2U9IiM1OGE2ZmYiIHN0cm9rZS13aWR0aD0iMS41Ii8+CiAgICA8dGV4dCB4PSIzNCIgeT0iNzQiIGZpbGw9IiM1OGE2ZmYiPnVzZXIgdHg8L3RleHQ+CiAgICA8dGV4dCB4PSIzNCIgeT0iOTQiIGZpbGw9IiM4Yjk0OWUiPnBpY2tzIGFjY291bnRzPC90ZXh0PgogICAgPHRleHQgeD0iMTY0IiB5PSI4NCIgZmlsbD0iI2U2ZWRmMyIgZm9udC1zaXplPSIxOCI+LS0mZ3Q7PC90ZXh0PgogICAgPHJlY3QgeD0iMTk0IiB5PSI1MiIgd2lkdGg9IjE1MCIgaGVpZ2h0PSI1MiIgcng9IjYiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2QyOTkyMiIgc3Ryb2tlLXdpZHRoPSIyIi8+CiAgICA8dGV4dCB4PSIyMDQiIHk9Ijc0IiBmaWxsPSIjZDI5OTIyIj5vdXIgcHJvZ3JhbTwvdGV4dD4KICAgIDx0ZXh0IHg9IjIwNCIgeT0iOTQiIGZpbGw9IiM4Yjk0OWUiPmludm9rZXMgY2FsbGVlPC90ZXh0PgogICAgPHRleHQgeD0iMzU0IiB5PSI3MCIgZmlsbD0iI2Y4NTE0OSIgZm9udC1zaXplPSIxMyI+Y2FsbGVlID0gPz8/PC90ZXh0PgogICAgPHRleHQgeD0iMzU0IiB5PSI5MCIgZmlsbD0iIzhiOTQ5ZSIgZm9udC1zaXplPSIxMyI+YXR0YWNrZXItY2hvc2VuPC90ZXh0PgogICAgPHJlY3QgeD0iMTk0IiB5PSIxMzAiIHdpZHRoPSIxODAiIGhlaWdodD0iNTIiIHJ4PSI2IiBmaWxsPSJub25lIiBzdHJva2U9IiMzZmI5NTAiIHN0cm9rZS13aWR0aD0iMS41Ii8+CiAgICA8dGV4dCB4PSIyMDQiIHk9IjE1MiIgZmlsbD0iIzNmYjk1MCI+cmVhbCBUb2tlbiBwcm9ncmFtPC90ZXh0PgogICAgPHRleHQgeD0iMjA0IiB5PSIxNzIiIGZpbGw9IiM4Yjk0OWUiPm1vdmVzIHRva2VuczwvdGV4dD4KICAgIDxyZWN0IHg9IjM5NCIgeT0iMTMwIiB3aWR0aD0iMjIyIiBoZWlnaHQ9IjUyIiByeD0iNiIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjZjg1MTQ5IiBzdHJva2Utd2lkdGg9IjIiLz4KICAgIDx0ZXh0IHg9IjQwNCIgeT0iMTUyIiBmaWxsPSIjZjg1MTQ5Ij5mYWtlIHByb2dyYW0gKHBpbmcpPC90ZXh0PgogICAgPHRleHQgeD0iNDA0IiB5PSIxNzIiIGZpbGw9IiM4Yjk0OWUiPnJldHVybnMgT2ssIG1vdmVzIG5vdGhpbmc8L3RleHQ+CiAgICA8dGV4dCB4PSIyNDAiIHk9IjEyMiIgZmlsbD0iIzNmYjk1MCIgZm9udC1zaXplPSIxNiI+LzwvdGV4dD4KICAgIDx0ZXh0IHg9IjMzMCIgeT0iMTIyIiBmaWxsPSIjZjg1MTQ5IiBmb250LXNpemU9IjE2Ij5cPC90ZXh0PgogICAgPHJlY3QgeD0iMjQiIHk9IjE5NiIgd2lkdGg9IjU5MiIgaGVpZ2h0PSI0MCIgcng9IjYiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzNmYjk1MCIgc3Ryb2tlLXdpZHRoPSIxLjUiLz4KICAgIDx0ZXh0IHg9IjM0IiB5PSIyMjAiIGZpbGw9IiMzZmI5NTAiPlByb2dyYW0gdmVyaWZpZWQgcHJlLWJvZHk6IG9ubHkgdGhlIGxlZnQgcGF0aCByZW1haW5zPC90ZXh0PgogIDwvZz4KPC9zdmc+Cg==";
+function _page($$renderer) {
+  _03_cpi_deputy_md($$renderer);
+  $$renderer.push(`<!----> <img${attr("src", diagram)} alt="Confused deputy: the callee is attacker-chosen"/> `);
+  Quiz($$renderer, { quiz: "quiz-103" });
+  $$renderer.push(`<!----> <a class="btn" href="/rooms/l3-cpi">Open the room</a> `);
+  LessonNav($$renderer, {
+    prev: { href: "/learn/102", label: "Lesson 102" },
+    next: { href: "/learn/104", label: "Lesson 104" }
+  });
+  $$renderer.push(`<!---->`);
+}
+
+export { _page as default };
+//# sourceMappingURL=_page.svelte-BPjI38fI.js.map

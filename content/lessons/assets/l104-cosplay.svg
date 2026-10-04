@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 250" role="img" aria-label="Type cosplay discriminator">
+  <rect x="8" y="8" width="624" height="234" rx="10" fill="none" stroke="#8b949e" stroke-width="2"/>
+  <text x="24" y="36" fill="#e6edf3" font-family="monospace" font-size="15">SAME BYTES, DIFFERENT COSTUME</text>
+  <g font-family="monospace" font-size="13">
+    <rect x="24" y="52" width="280" height="70" rx="6" fill="none" stroke="#58a6ff" stroke-width="1.5"/>
+    <text x="34" y="74" fill="#58a6ff">User account</text>
+    <text x="34" y="94" fill="#8b949e">[disc: ab12..][authority: YOU]</text>
+    <text x="34" y="112" fill="#8b949e">sha256("account:User")</text>
+    <rect x="336" y="52" width="280" height="70" rx="6" fill="none" stroke="#d29922" stroke-width="1.5"/>
+    <text x="346" y="74" fill="#d29922">Note account</text>
+    <text x="346" y="94" fill="#8b949e">[disc: 34cd..][account: YOU]</text>
+    <text x="346" y="112" fill="#8b949e">sha256("account:Note")</text>
+    <text x="270" y="150" fill="#e6edf3" font-size="13">bytes 8..40: identical</text>
+    <rect x="24" y="160" width="592" height="56" rx="6" fill="none" stroke="#f85149" stroke-width="2"/>
+    <text x="34" y="184" fill="#f85149">manual parse reads 8..40, never compares discs --&gt; costume fits</text>
+    <text x="34" y="204" fill="#3fb950">Account&lt;User&gt; compares discs pre-body --&gt; costume refused</text>
+  </g>
+</svg>

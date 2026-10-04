@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 250" role="img" aria-label="Valid signature wrong vault">
+  <rect x="8" y="8" width="624" height="234" rx="10" fill="none" stroke="#8b949e" stroke-width="2"/>
+  <text x="24" y="36" fill="#e6edf3" font-family="monospace" font-size="15">TWO TRUE FACTS, NO LINK</text>
+  <g font-family="monospace" font-size="13">
+    <rect x="24" y="52" width="270" height="56" rx="6" fill="none" stroke="#3fb950" stroke-width="1.5"/>
+    <text x="34" y="74" fill="#3fb950">fact 1: Bob signed (valid)</text>
+    <text x="34" y="94" fill="#8b949e">is_signer == true</text>
+    <rect x="24" y="116" width="270" height="56" rx="6" fill="none" stroke="#3fb950" stroke-width="1.5"/>
+    <text x="34" y="138" fill="#3fb950">fact 2: vault funded</text>
+    <text x="34" y="158" fill="#8b949e">balance 100 (Alice's)</text>
+    <rect x="330" y="52" width="286" height="120" rx="6" fill="none" stroke="#f85149" stroke-width="2"/>
+    <text x="340" y="76" fill="#f85149">missing: the link</text>
+    <text x="340" y="98" fill="#8b949e">vault.authority == signer?</text>
+    <text x="340" y="120" fill="#8b949e">never asked --&gt; drains</text>
+    <text x="340" y="142" fill="#3fb950">has_one asks pre-body</text>
+    <text x="340" y="162" fill="#8b949e">--&gt; refused</text>
+  </g>
+  <text x="24" y="196" fill="#e6edf3" font-family="monospace" font-size="12">caption: each fact checks out alone; without the link the pair is still theft.</text>
+</svg>

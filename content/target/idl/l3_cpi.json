@@ -1,0 +1,300 @@
+{
+  "address": "HuKUtxW8Y6BWhfyXftZMS1BqENagBJzZFWMzjhx1tCFf",
+  "metadata": {
+    "name": "l3_cpi",
+    "version": "0.1.0",
+    "spec": "0.1.0",
+    "description": "Arena L3: arbitrary CPI callee (port of z0neSec arbitrary-cpi, MIT)"
+  },
+  "instructions": [
+    {
+      "name": "initialize_vault",
+      "docs": [
+        "Initialize a vault's books for demonstration."
+      ],
+      "discriminator": [
+        48,
+        191,
+        163,
+        44,
+        71,
+        129,
+        63,
+        164
+      ],
+      "accounts": [
+        {
+          "name": "vault",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  118,
+                  97,
+                  117,
+                  108,
+                  116
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "authority"
+              }
+            ]
+          }
+        },
+        {
+          "name": "authority",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "initial_balance",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "ping",
+      "docs": [
+        "Harmless no-op. In this lab it plays the attacker's always-Ok fake",
+        "program so no second program must be deployed: invoking the room",
+        "program id with these bytes always succeeds, exactly like a fake",
+        "token program would. A real attacker deploys their own."
+      ],
+      "discriminator": [
+        173,
+        0,
+        94,
+        236,
+        73,
+        133,
+        225,
+        153
+      ],
+      "accounts": [],
+      "args": []
+    },
+    {
+      "name": "release_insecure",
+      "docs": [
+        "",
+        "## INSECURE: callee is whatever account we were handed",
+        "",
+        "Attack scenario:",
+        "1. Vault holds 100 tokens of bookkeeping balance for a victim.",
+        "2. Attacker calls `release_insecure` with:",
+        "- token_program = a program that returns Ok to anything",
+        "(this lab: the room program itself, via `ping`; in the wild:",
+        "the attacker's own fake token program),",
+        "- amount = the whole balance, destination = themselves.",
+        "3. The invoke succeeds without moving any real token.",
+        "4. Books record a release that never happened; the attacker then",
+        "claims against the phantom credit.",
+        ""
+      ],
+      "discriminator": [
+        98,
+        142,
+        215,
+        220,
+        149,
+        9,
+        159,
+        176
+      ],
+      "accounts": [
+        {
+          "name": "vault",
+          "writable": true
+        },
+        {
+          "name": "authority",
+          "signer": true
+        },
+        {
+          "name": "token_program"
+        }
+      ],
+      "args": [
+        {
+          "name": "amount",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "release_secure",
+      "docs": [
+        "",
+        "## SECURE (recommended): the type system names the callee",
+        "",
+        "`Program<'info, Token>` proves key == Token program id before the body",
+        "runs, and the body performs a REAL token transfer instead of trusting",
+        "a foreign return code. Books update only after real movement.",
+        ""
+      ],
+      "discriminator": [
+        6,
+        237,
+        216,
+        163,
+        218,
+        183,
+        87,
+        172
+      ],
+      "accounts": [
+        {
+          "name": "vault",
+          "writable": true
+        },
+        {
+          "name": "source",
+          "writable": true
+        },
+        {
+          "name": "destination",
+          "writable": true
+        },
+        {
+          "name": "authority",
+          "signer": true
+        },
+        {
+          "name": "token_program",
+          "address": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"
+        }
+      ],
+      "args": [
+        {
+          "name": "amount",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "release_secure_manual",
+      "docs": [
+        "",
+        "## SECURE (manual): refuse any callee that is not the Token program",
+        "",
+        "Same shape as the insecure instruction, plus one explicit compare",
+        "before the invoke. Secure, but every new call site must remember it.",
+        ""
+      ],
+      "discriminator": [
+        130,
+        194,
+        19,
+        201,
+        57,
+        77,
+        95,
+        81
+      ],
+      "accounts": [
+        {
+          "name": "vault",
+          "writable": true
+        },
+        {
+          "name": "authority",
+          "signer": true
+        },
+        {
+          "name": "token_program"
+        }
+      ],
+      "args": [
+        {
+          "name": "amount",
+          "type": "u64"
+        }
+      ]
+    }
+  ],
+  "accounts": [
+    {
+      "name": "Vault",
+      "discriminator": [
+        211,
+        8,
+        232,
+        43,
+        2,
+        152,
+        117,
+        119
+      ]
+    }
+  ],
+  "errors": [
+    {
+      "code": 6000,
+      "name": "InvalidProgram",
+      "msg": "Callee is not the expected program"
+    },
+    {
+      "code": 6001,
+      "name": "InsufficientFunds",
+      "msg": "Insufficient book balance for this release"
+    },
+    {
+      "code": 6002,
+      "name": "Overflow",
+      "msg": "Arithmetic overflow occurred"
+    },
+    {
+      "code": 6003,
+      "name": "NotSourceOwner",
+      "msg": "The source token account is not yours"
+    }
+  ],
+  "types": [
+    {
+      "name": "Vault",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "authority",
+            "docs": [
+              "Who the books belong to (display only in this room)."
+            ],
+            "type": "pubkey"
+          },
+          {
+            "name": "balance",
+            "docs": [
+              "Bookkeeping balance awaiting release."
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "released",
+            "docs": [
+              "Cumulative amount the program recorded as released."
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "bump",
+            "docs": [
+              "PDA bump seed."
+            ],
+            "type": "u8"
+          }
+        ]
+      }
+    }
+  ]
+}

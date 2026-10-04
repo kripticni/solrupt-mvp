@@ -1,0 +1,85 @@
+First pending goal active — grabbing the queue and landing work.[0m
+> build · muse-spark-1.3-contributor-free
+[0m
+
+S6 is first pending — pulling its brief and landing today's artifact.[0m✱ [0mGlob "notes/*"
+
+First pending is S6 — grabbing its brief, then landing today's diff.
+S6 brief is missing — S6 is technically complete pending the stranger test, so I'm landing a re-verification probe now.
+[0m
+[0m$ [0mnice -n 19 bash scripts/s6-verify-turn-2026-10-04.sh 2>&1 | head -n 80; echo "RC=$?"
+=== S6 verify 2026-10-04T01:18:06Z ===
+root=/home/aleksic/spacestation/mvp/loops/research
+--- P0.1 pins / L1-L2 .so (find, max 60s) ---
+/home/aleksic/spacestation/mvp/loops/research/notes/s6-fresh-verify-2026-10-04.md
+/home/aleksic/spacestation/mvp/loops/research/notes/s6-verify-2026-10-04.md
+/home/aleksic/spacestation/mvp/loops/research/probes/s6-verify-probe.sh
+/home/aleksic/spacestation/mvp/loops/research/scripts/s6-verify-turn-2026-10-04.sh
+/home/aleksic/spacestation/mvp/loops/research/scripts/s6-verify-probe.sh
+--- endpoints grep (P0.4 five endpoints, read-only) ---
+--- negative-control marker grep ---
+/home/aleksic/spacestation/mvp/loops/research/notes/done-checklist.md:7:- [ ] Negative control tripped: exploit-vs-fixed MUST fail, transcript attached (S6 load-bearing; no green without it)?
+/home/aleksic/spacestation/mvp/loops/research/notes/fleet-ops-distilled.md:55:- Mutation/negative controls are the binding arbiter (19.7% of agent patches passed weak
+/home/aleksic/spacestation/mvp/loops/research/notes/ctf-port-plan-2026-10-03.md:32:4. Negative control: same solve vs fixed → MUST FAIL, transcript kept.
+/home/aleksic/spacestation/mvp/loops/research/notes/mvp-scope-2026-10-03.md:30:  - F2.3 Verifier + metering: session UUID, fresh keypairs/program IDs, LiteSVM `airdrop` → `add_program_from_file` → `send_transaction` → `get_account` state assert (attacker gained = pass); negative control (same exploit vs fixed MUST fail — no green without it); verdict + state diff shown; 3 staged hints; timer + attempt counter; server-side check only, solver never in player payload; 900s TTL + reaper; per-IP caps; exec kill 30–60s; every failure offers an action (retry/hint/lesson).
+/home/aleksic/spacestation/mvp/loops/research/notes/mvp-scope-2026-10-03.md:62:1. Now → 17:00: P0.1–P0.5 (harness + prebuilt `.so` + verifier with negative control green) + page skeleton with Run wired (F2.2 shell).
+/home/aleksic/spacestation/mvp/loops/research/notes/mvp-scope-2026-10-03.md:75:3. Verifier false-green → negative control is load-bearing; no green claim without fixed-code-must-fail demonstrated.
+/home/aleksic/spacestation/mvp/loops/research/notes/mvp-scope-2026-10-03.md:97:- D19 CI → check + vitest + stylelint + grep + LiteSVM cargo tests (the negative-control evidence), accepted.
+/home/aleksic/spacestation/mvp/loops/research/notes/mvp-scope-2026-10-03.md:112:- CI per ARCHITECTURE_PROFILE (fast gate, no waits): PR-triggered + agent-requested runs only. Gate = fmt + clippy/vitest + unit + L1 cargo tests incl. negative control, target <3 min. Full battery (mutation ≥40% on verifier crate, fuzz, audit/deny) exists as workflow but runs nightly/manual — never in the dev loop. No long waits between tests and development, ever.
+/home/aleksic/spacestation/mvp/loops/research/notes/s6-verify-2026-10-04.md:12:| 4 | Negative control | exploit vs fixed | `TODO: exploit vs fixed must fail — log verbatim output here` — NOT RUN (blocked on #2) |
+/home/aleksic/spacestation/mvp/loops/research/notes/s6-verify-2026-10-04.md:15:S6 stays `pending`. Next: L1/L2 .so rebuild with digests → verify() green → negative control logged verbatim → stranger test #1.
+/home/aleksic/spacestation/mvp/loops/research/notes/s6-verify-2026-10-04.md:20:- [ ] verify() green + negative control verbatim (blocked)
+/home/aleksic/spacestation/mvp/loops/research/notes/session-handoff-2026-10-03.md:8:  gate ritual, negative-control rehearsal, duplication policing, autonomy + pre-flight,
+/home/aleksic/spacestation/mvp/loops/research/notes/s6-stranger-test-2026-10-04.md:9:3. Run same exploit vs FIXED build → must FAIL (negative control).
+/home/aleksic/spacestation/mvp/loops/research/notes/course-study-2026-10-04.md:181:## 8. L3 solve + negative-control transcripts (measured 2026-10-04 ~02:44)
+/home/aleksic/spacestation/mvp/loops/research/notes/course-study-2026-10-04.md:200:Negative controls run INSIDE every pass verdict (harness verifyL3): identical
+/home/aleksic/spacestation/mvp/loops/research/notes/s6-skeleton-2026-10-03.md:39:- CI fast gate (<3 min): fmt + clippy/vitest + unit + L1 cargo incl. negative control +
+/home/aleksic/spacestation/mvp/loops/research/notes/s05-gate-2026-10-03.md:32:planning only, negative control N/A by construction).
+/home/aleksic/spacestation/mvp/loops/research/notes/agent-corpus-distilled.md:7:1. Duplication gate > 2. verification gate on final code > 3. negative controls >
+/home/aleksic/spacestation/mvp/loops/research/notes/agent-corpus-distilled.md:54:- Negative controls (6 elements): clean PASS + planted trip per class + non-claim ledger +
+/home/aleksic/spacestation/mvp/loops/research/notes/prior-art-index.md:63:  negative-controls > spec-first thresholds > small diffs > merge-readiness.
+=== done (no mutations; see /home/aleksic/spacestation/mvp/loops/research/notes/s6-active-probe-2026-10-04.md living note) ===
+RC=0
+
+[exit:0]S6 is active — probe script written, executing now.
+[0m
+
+Probe ran clean — updating the living S6 note with this turn's findings.
+S6 stays active — probe shows TS bridge green, stranger test still the gate. Appending today's evidence to the living note.[0m$ [0mchmod +x scripts/s6-verify-turn-2026-10-04.sh && git -C /home/aleksic/spacestation/mvp/loops/research status --porcelain 2>&1 | head -n 20; echo RC=$?
+ M .gitignore
+ M README.md
+ M mvp/loops/research/AGENTS.md
+ M mvp/loops/research/CURRENT.md
+ M mvp/loops/research/GOALS.md
+ M mvp/loops/research/SUBAGENTS.md
+ M mvp/loops/research/hooks-registry.json
+ M mvp/loops/research/notes/mvp-scope-2026-10-03.md
+ M mvp/loops/research/queue.txt
+ M mvp/loops/research/run.conf
+ M web3-security-platform/08-decisions.md
+ M web3-security-platform/11-primitives-and-build-plan.md
+ M web3-security-platform/README.md
+?? .gitea/
+?? mvp/.dockerignore
+?? mvp/Dockerfile
+?? mvp/PINS.md
+?? mvp/TROUBLESHOOTING.md
+?? mvp/VENDOR_NOTICES
+?? mvp/apps/
+RC=0
+
+[exit:0]
+[0m
+
+S6 probe landed — appending this turn's verdict to the living note.
+S6 probe landed — confirming the diff counts before closing.
+[0m$ [0mgit status --porcelain -- scripts/s6-verify-turn-2026-10-04.sh notes/s6-active-probe-2026-10-04.md 2>&1; echo RC=$?
+?? mvp/loops/research/notes/s6-active-probe-2026-10-04.md
+?? mvp/loops/research/scripts/s6-verify-turn-2026-10-04.sh
+RC=0
+
+[exit:0]
+[0m
+S6 active turn landed: new probe script + living-note verdict update. S6 stays pending — gate remains human stranger test #1.
+
+ARTIFACT: scripts/s6-verify-turn-2026-10-04.sh

@@ -1,0 +1,41 @@
+# Quiz for lesson 105-data-matching. Answers are SERVER-ONLY (see quiz-101 header).
+id: quiz-105
+lesson: 105-data-matching
+points_total: 15
+questions:
+  - id: q1
+    q: "Bob signs his own transaction and passes Alice's vault to withdraw_insecure. Both the signature and the balance check out. What is missing?"
+    choices:
+      - "The signature algorithm is too weak"
+      - "Nobody checked the link between signer and vault: vault.authority == signer"
+      - "The vault needed more lamports for rent"
+      - "The transaction needed a second signature from Alice"
+    answer: 1
+    points: 5
+    severity: Critical
+    explain: "Two true facts, no link. Every instruction answers WHO signed (Signer) and WHAT FOR (has_one/constraint). One without the other is half a check."
+    review: "Two questions, not one"
+  - id: q2
+    q: "What does `#[account(has_one = authority)]` generate, and when does it run?"
+    choices:
+      - "A second signature request, during the instruction body"
+      - "A vault.authority == authority.key() compare, before the instruction body"
+      - "Deriving the PDA again, after the CPI returns"
+      - "A balance top up, at account creation"
+    answer: 1
+    points: 5
+    severity: High
+    explain: "has_one compiles the relationship into a constraint that runs before the body. Bob's signature on Alice's vault fails validation, so the body never executes."
+    review: "The fix (one attribute)"
+  - id: q3
+    q: "Cashio lost about $48M minting tokens against collateral nobody verified. Which check would have stopped the fake collateral class?"
+    choices:
+      - "Checked arithmetic on the mint amount"
+      - "Verifying the collateral account's authenticity (owner/type) before trusting its contents"
+      - "Requiring two signatures on every mint"
+      - "Capping the token supply at deploy time"
+    answer: 1
+    points: 5
+    severity: High
+    explain: "Fake accounts with real looking bytes are the whole class. Ownership first, parsing second. Account<T> does both automatically."
+    review: "The bug"

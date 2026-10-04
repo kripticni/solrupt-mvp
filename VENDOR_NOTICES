@@ -1,0 +1,22 @@
+# VENDOR_NOTICES (H02 pack item 4 — every reused component, with license)
+
+## Included code (vendored or ported, attribution headers in-file)
+
+- OtterSec `sol-ctf-framework` — BSD-3-Clause © 2024 OtterSec LLC.
+  Role: challenge/verifier scaffold (shape only). [LANDS with Diff 3.]
+- z0neSec `solsec-workshop` — MIT © z0neSec, pinned @ 15074547581430b866b81c56dd1fde98e9a7e13d.
+  Role: L1 `signer-authorization` + L2 `owner-check` + L3 `arbitrary-cpi` +
+  L4 `type-cosplay` + L5 `account-data-matching` + L6 `challenge-1-insecure-vault` +
+  L7 `integer-overflow` programs (ported, headers kept).
+- LiteSVM (`litesvm` npm 1.5.0 / Rust core 0.17.0) — Apache-2.0/MIT © LiteSVM contributors.
+  Role: in-process execution engine. No code vendored (dependency only).
+
+## Reference only (idioms studied, zero files vendored)
+
+Neodyme solana-ctf / breakpoint-workshop / poc-framework; coral-xyz sealevel-attacks;
+Ackee Bootcamp / School of Solana; Mysten CTF / bootcamp; MoveCTF; Monethic;
+Kiinzu sui-ctf-infrastructure; BlockChomper; Xzavior34 — all unlicensed, reimplemented-never-copied.
+
+## Gate
+
+S6/S10 closers grep for the reference-only paths before any merge (CI `Unlicensed-path grep` job).

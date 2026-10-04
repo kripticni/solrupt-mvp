@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 260" role="img" aria-label="CPI confused deputy">
+  <rect x="8" y="8" width="624" height="244" rx="10" fill="none" stroke="#8b949e" stroke-width="2"/>
+  <text x="24" y="36" fill="#e6edf3" font-family="monospace" font-size="15">CONFUSED DEPUTY: WHO PICKED THE CALLEE?</text>
+  <g font-family="monospace" font-size="13">
+    <rect x="24" y="52" width="130" height="52" rx="6" fill="none" stroke="#58a6ff" stroke-width="1.5"/>
+    <text x="34" y="74" fill="#58a6ff">user tx</text>
+    <text x="34" y="94" fill="#8b949e">picks accounts</text>
+    <text x="164" y="84" fill="#e6edf3" font-size="18">--&gt;</text>
+    <rect x="194" y="52" width="150" height="52" rx="6" fill="none" stroke="#d29922" stroke-width="2"/>
+    <text x="204" y="74" fill="#d29922">our program</text>
+    <text x="204" y="94" fill="#8b949e">invokes callee</text>
+    <text x="354" y="70" fill="#f85149" font-size="13">callee = ???</text>
+    <text x="354" y="90" fill="#8b949e" font-size="13">attacker-chosen</text>
+    <rect x="194" y="130" width="180" height="52" rx="6" fill="none" stroke="#3fb950" stroke-width="1.5"/>
+    <text x="204" y="152" fill="#3fb950">real Token program</text>
+    <text x="204" y="172" fill="#8b949e">moves tokens</text>
+    <rect x="394" y="130" width="222" height="52" rx="6" fill="none" stroke="#f85149" stroke-width="2"/>
+    <text x="404" y="152" fill="#f85149">fake program (ping)</text>
+    <text x="404" y="172" fill="#8b949e">returns Ok, moves nothing</text>
+    <text x="240" y="122" fill="#3fb950" font-size="16">/</text>
+    <text x="330" y="122" fill="#f85149" font-size="16">\</text>
+    <rect x="24" y="196" width="592" height="40" rx="6" fill="none" stroke="#3fb950" stroke-width="1.5"/>
+    <text x="34" y="220" fill="#3fb950">Program verified pre-body: only the left path remains</text>
+  </g>
+</svg>

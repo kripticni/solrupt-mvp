@@ -1,0 +1,41 @@
+# Quiz for lesson 104-type-cosplay. Answers are SERVER-ONLY (see quiz-101 header).
+id: quiz-104
+lesson: 104-type-cosplay
+points_total: 15
+questions:
+  - id: q1
+    q: "A User holds authority: Pubkey in its first 32 bytes; a Note holds account: Pubkey in its first 32 bytes. Reading bytes alone, what distinguishes them?"
+    choices:
+      - "Nothing. Only the 8 byte discriminator tells the types apart"
+      - "The owner's lamport balance differs"
+      - "Users are PDA derived, Notes never are"
+      - "The byte offsets of the first field differ"
+    answer: 0
+    points: 5
+    severity: High
+    explain: "Identical layouts mean identical bytes. The discriminator, sha256 of the type name prepended by Anchor, is the whole difference, and manual parses skip it."
+    review: "Same bytes, different meaning"
+  - id: q2
+    q: "The insecure claim reads bytes 8..40 and compares against the signer. Why does passing a Note pointing at yourself pass the check?"
+    choices:
+      - "The runtime rewrites Note discriminators into User discriminators"
+      - "Bytes 8..40 of the Note hold your key, and the check compares bytes without asking what type provided them"
+      - "Notes are exempt from signer verification by default"
+      - "The ledger registers any account as a User automatically"
+    answer: 1
+    points: 5
+    severity: Critical
+    explain: "Correct bytes, wrong type. The equality check is sound, but its input is not. Type confusion happens before the check, at deserialization."
+    review: "The bug"
+  - id: q3
+    q: "What does `Account<'info, User>` verify before the instruction body runs?"
+    choices:
+      - "Only that the account signed the transaction"
+      - "Discriminator plus owner plus shape. A Note fails at the door"
+      - "Only that the account holds enough lamports"
+      - "That no other instruction touched the account this slot"
+    answer: 1
+    points: 5
+    severity: High
+    explain: "All three at the validation phase. Manual deserialization opts out of every one, so reaching for try_borrow_data plus slicing should trigger the same scrutiny as AccountInfo."
+    review: "The fix (let the type do the asking)"

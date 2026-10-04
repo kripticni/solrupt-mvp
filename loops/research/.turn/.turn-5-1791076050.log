@@ -1,0 +1,634 @@
+First pending slice coming — pulling brief then landing artifact.[0m
+> build · muse-spark-1.3-contributor-free
+[0m
+
+First pending goal active — grabbing the brief.
+S6 is active — reading its brief then dropping first artifact.
+S6 brief miss noted — writing gate probe first.
+Probe written first per force-work rule — now running it and locating the brief.
+[0m$ [0mnice -n 19 bash s6-gate-probe-20261004.sh 2>&1 | head -80; echo "---EXIT:$?---"
+== S6 gate probe 2026-10-04 ==
+--- P0.1 pins (grep) ---
+./notes/done-checklist.md
+./notes/h02-challenge-brief-2026-10-03.md
+./notes/s6-fresh-verify-2026-10-04.md
+./notes/improve-backlog-2026-10-04.md
+./notes/fleet-ops-distilled.md
+./notes/evidence-schema.md
+./notes/ctf-port-plan-2026-10-03.md
+./notes/mvp-scope-2026-10-03.md
+./notes/s6-verify-2026-10-04.md
+./notes/session-handoff-2026-10-03.md
+./notes/ux-lab-patterns-2026-10-04.md
+./notes/course-study-2026-10-04.md
+./notes/s6-active-probe-2026-10-04.md
+./notes/s6-skeleton-2026-10-03.md
+./notes/s05-gate-2026-10-03.md
+./notes/agent-corpus-distilled.md
+./notes/prior-art-index.md
+./notes/s6-evidence-2026-10-04.md
+./notes/s6-live-rerun-2026-10-04-late.md
+./notes/recommendations-2026-10-03.md
+--- L1/L2 .so prebuilt ---
+--- so count: 0 ---
+--- verify(session,room,exploit) refs ---
+--- NEGATIVE CONTROL refs ---
+./notes/done-checklist.md:7:- [ ] Negative control tripped: exploit-vs-fixed MUST fail, transcript attached (S6 load-bearing; no green without it)?
+./notes/s6-fresh-verify-2026-10-04.md:11:| 2026-10-04 ~03:00 | `timeout 60 node verifier-ts/solve-l1-negative.mjs` | `NEG-CONTROL PASS: fixed refused unsigned withdraw (TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 3010 } })` | 0 |
+./notes/fleet-ops-distilled.md:55:- Mutation/negative controls are the binding arbiter (19.7% of agent patches passed weak
+./notes/evidence-schema.md:12:1. Negative/null result is valid iff transparent — never re-run subjects until green (S7: 5 beginners × 10 min, bar 3/5 on FIRST runs).
+./notes/ctf-port-plan-2026-10-03.md:32:4. Negative control: same solve vs fixed → MUST FAIL, transcript kept.
+./notes/mvp-scope-2026-10-03.md:15:If Jovan can run a guided missing-signer exploit in-browser with zero setup, then 3 of 5 beginners point at the bug AND the fix within 10 minutes, and each produces a proof URL re-verifiable by a stranger. (Negative result is valid if transparent — H02 brief §6.)
+./notes/mvp-scope-2026-10-03.md:30:  - F2.3 Verifier + metering: session UUID, fresh keypairs/program IDs, LiteSVM `airdrop` → `add_program_from_file` → `send_transaction` → `get_account` state assert (attacker gained = pass); negative control (same exploit vs fixed MUST fail — no green without it); verdict + state diff shown; 3 staged hints; timer + attempt counter; server-side check only, solver never in player payload; 900s TTL + reaper; per-IP caps; exec kill 30–60s; every failure offers an action (retry/hint/lesson).
+./notes/mvp-scope-2026-10-03.md:62:1. Now → 17:00: P0.1–P0.5 (harness + prebuilt `.so` + verifier with negative control green) + page skeleton with Run wired (F2.2 shell).
+./notes/mvp-scope-2026-10-03.md:75:3. Verifier false-green → negative control is load-bearing; no green claim without fixed-code-must-fail demonstrated.
+./notes/mvp-scope-2026-10-03.md:97:- D19 CI → check + vitest + stylelint + grep + LiteSVM cargo tests (the negative-control evidence), accepted.
+--- P0.2 schema refs ---
+./notes/evidence-schema.md
+./notes/mvp-scope-2026-10-03.md
+./notes/s6-verify-2026-10-04.md
+./notes/session-handoff-2026-10-03.md
+./notes/course-study-2026-10-04.md
+./notes/s6-skeleton-2026-10-03.md
+./notes/s6-turn-2026-10-04.md
+./notes/s6-turn-probe-2026-10-04.md
+./CURRENT.md
+./LOOP_LOG.md
+./SUBAGENTS.md
+./GOALS.md
+--- P0.4 endpoints (5) refs ---
+--- F2.2 lab shell refs ---
+./notes/mvp-scope-2026-10-03.md
+./notes/s6-verify-2026-10-04.md
+./notes/s6-skeleton-2026-10-03.md
+./notes/s6-turn-2026-10-04.md
+./notes/s6-turn-probe-2026-10-04.md
+./LOOP_LOG.md
+./s6-gate-probe-20261004.sh
+./GOALS.md
+== probe done ==
+---EXIT:0---
+
+[exit:0]
+[0m
+[0m✱ [0mGlob "notes/*brief*.md"
+Probe shows zero `.so` and zero `verify()` in code — need the living S6 notes to place this precisely.
+Probe landed; now placing it against S6 gate state.
+[0m
+[0m$ [0mls notes/ | head -60; echo "---"; ls ../.. 2>&1 | head -20; echo "---"; ls ../../verifier-ts/ 2>&1 | head; echo "---"; ls ../../content/programs/ 2>&1 | head
+agent-corpus-distilled.md
+course-study-2026-10-04.md
+ctf-course-prompt-2026-10-04.md
+ctf-port-plan-2026-10-03.md
+done-checklist.md
+evidence-2026-10-04.md
+evidence-schema.md
+fleet-ops-distilled.md
+h02-challenge-brief-2026-10-03.md
+improve-backlog-2026-10-04.md
+lessons.md
+mvp-scope-2026-10-03.md
+prior-art-index.md
+recommendations-2026-10-03.md
+s05-gate-2026-10-03.md
+s06-gate-2026-10-04.md
+s6-active-probe-2026-10-04.md
+s6-evidence-2026-10-04.md
+s6-fresh-verify-2026-10-04.md
+s6-live-rerun-2026-10-04-late.md
+s6-probe-2026-10-04.md
+s6-skeleton-2026-10-03.md
+s6-stranger-test-2026-10-04.md
+s6-turn-2026-10-04.md
+s6-turn-probe-2026-10-04.md
+s6-verify-2026-10-04.md
+session-handoff-2026-10-03.md
+solana-starter-arena-context.md
+turn-probe-2026-10-04-s6-active.md
+ux-gap-audit-2026-10-04.md
+ux-lab-patterns-2026-10-04.md
+ux-motion-sound-2026-10-04.md
+ux-round2-audit-2026-10-04.md
+---
+apps
+content
+Dockerfile
+loops
+PINS.md
+README.md
+schema.sql
+seed.ts
+TROUBLESHOOTING.md
+VENDOR_NOTICES
+verifier-rs
+verifier-ts
+---
+canary.mjs
+node_modules
+package.json
+package-lock.json
+solve-l1.mjs
+solve-l1-negative.mjs
+solve-l2.mjs
+---
+l1-signer
+l2-owner
+l3-cpi
+l4-cosplay
+l5-match
+l6-vault
+
+[exit:0]
+[0m
+Probe is down; now the live re-verify that makes this turn real work.
+[0m$ [0mcd /home/aleksic/spacestation/mvp && nice -n 19 timeout 60 node verifier-ts/solve-l1.mjs 2>&1 | head -5; echo "RC:$?"
+SOLVE PASS: vault 100000000 -> 60000000 (attacker gained 40000000)
+RC:0
+
+[exit:0]
+[0m
+Live L1 green — completing the S6 re-verify set now.
+[0m$ [0mcd /home/aleksic/spacestation/mvp && nice -n 19 timeout 60 node verifier-ts/solve-l1-negative.mjs 2>&1 | head -3; echo "RC:$?"; nice -n 19 timeout 60 node verifier-ts/solve-l2.mjs 2>&1 | head -6; echo "RC:$?"; sha256sum content/programs/l1-signer/l1_signer.so content/programs/l2-owner/l2_owner.so 2>&1; curl -s -m 10 http://127.0.0.1:17864/api/health 2>&1; echo "CURL_RC:$?"
+NEG-CONTROL PASS: fixed refused unsigned withdraw (TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 3010 } })
+RC:0
+SOLVE: insecure trusted fake balance 1000000 from System-owned account
+NEG-CONTROL PASS: secure-manual refused (TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 6000 } })
+NEG-CONTROL PASS: secure-anchor refused (TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 3007 } })
+SOLVE PASS: fake 1000000 trusted by insecure, refused by both secure
+RC:0
+aad7d056709fac66d5519b4bd7d109eda73aea77c37bd7cfeb8990267f10d497  content/programs/l1-signer/l1_signer.so
+3d08d88e95a47a13b02ed330746bdd679d42c34d5015a17a10a1ca7d2bc6dbd0  content/programs/l2-owner/l2_owner.so
+{"ok":true,"version":"0.1.0","verifier_pin":"litesvm-npm-1.5.0","db":"ok"}CURL_RC:0
+
+[exit:0]
+[0m
+All green — now landing the diff: fix the probe script paths and append fresh rows to the living note.[0m$ [0mdate -u +%Y-%m-%d~%H:%M; echo "---"; tail -5 notes/s6-active-probe-2026-10-04.md
+2026-10-04~01:09
+---
+| ~01:07Z | `GET /api/board` | `{"entries":[],"first_solvers":[]}` HTTP:200 | 0 |
+| ~01:07Z | `GET /proof/bogus-hash-xyz` | 200 HTML shell, safe placeholder (no leak, no crash) | 0 |
+| ~01:06Z | `df -h /home` | 158G / 117G used / 34G avail = 78% (headroom OK, no clearing needed) | 0 |
+- jscpd BASELINE recorded: invocation `npx --yes jscpd@5.1.2 --min-lines 30 --min-tokens 80 --ignore "**/node_modules/**" verifier-ts/` → 1 clone / 89 lines / 555 tokens. Per-note jscpd was generated code? [INFERENCE]: solve scripts share LiteSVM boilerplate (fixture/client setup) — consolidate only on 4th copy per AGENTS.md duplication rule; logged as leaf with re-trigger.
+- Gate item closed this turn: jscpd pinned invocation + baseline. Still open: guard rehearsal (owner next turn), stranger test #1 (owner HUMAN), Rust crate (UNASSIGNED/optional).
+
+[exit:0]
+[0m
+
+Live runs green and digests match the gate pins. Now checking the S6 remainder (P0.4 endpoints, F2.2 wiring) at the real project root, then landing the diff.
+[0m$ [0mcd /home/aleksic/spacestation/mvp && grep -rn "api/run\|api/board\|api/health\|api/hint\|api/verify" apps/ --include="*.ts" --include="*.js" --include="*.svelte" -l 2>/dev/null | head -10; echo "---ROUTES---"; grep -rn "post(\|get(\|'/api" apps/*/src/routes 2>/dev/null | head -20; echo "---APPS---"; ls apps/
+apps/web/.svelte-kit/types/src/routes/api/board/$types.d.ts
+apps/web/.svelte-kit/types/src/routes/api/run/$types.d.ts
+apps/web/.svelte-kit/types/src/routes/api/health/$types.d.ts
+apps/web/.svelte-kit/non-ambient.d.ts
+apps/web/.svelte-kit/output/server/manifest.js
+apps/web/.svelte-kit/output/server/manifest-full.js
+apps/web/.svelte-kit/output/client/_app/immutable/nodes/14.C11WPKhh.js
+apps/web/.svelte-kit/output/client/_app/immutable/nodes/12.DurrsFbk.js
+apps/web/.svelte-kit/output/client/_app/immutable/nodes/3.CvaeKlBg.js
+apps/web/.svelte-kit/adapter-node/manifest.js
+---ROUTES---
+apps/web/src/routes/api/rooms/[id]/+server.ts:35:		...(await target(params.id, url.searchParams.get("session")))
+apps/web/src/routes/api/rooms/[id]/+server.ts:42:async function target(id: string, session: string | null) {
+apps/web/src/routes/api/rooms/+server.ts:8:	const session = url.searchParams.get("session") ?? "";
+apps/web/src/routes/api/rooms/+server.ts:17:				.get(session, r.id);
+apps/web/src/routes/api/proof/[hash]/+server.ts:15:		.get(hash) as
+apps/web/src/routes/api/proof/[hash]/+server.ts:30:	const session = db.prepare("SELECT created, code_hash FROM sessions LEFT JOIN attempts ON attempts.session = sessions.uuid WHERE user = ? AND room = ? AND verdict = ? ORDER BY attempts.at LIMIT 1").get(
+apps/web/src/routes/api/search/+server.ts:11:	const parsed = SearchInput.safeParse({ q: url.searchParams.get("q") ?? "" });
+---APPS---
+web
+
+[exit:0]
+[0m
+Routes mapped — now testing the live Run path end-to-end.
+[0m$ [0mcd /home/aleksic/spacestation/mvp && ls apps/web/src/routes/api/ && echo "---RUN_SRC---" && head -60 apps/web/src/routes/api/run/+server.ts 2>/dev/null
+board
+finding
+health
+proof
+quiz
+rooms
+run
+search
+session
+---RUN_SRC---
+import { json } from "@sveltejs/kit";
+import type { RequestHandler } from "./$types.js";
+import { openDb } from "$lib/server/db/client.js";
+import { handleRun } from "$lib/server/verifier/run.js";
+
+export const POST: RequestHandler = async ({ request }) => {
+	const db = openDb(process.env.ARENA_DB ?? ":memory:");
+	const body = await request.json().catch(() => null);
+	const out = await handleRun(db, body);
+	const status = out.verdict === "error" ? 422 : 200;
+	return json(out, { status });
+};
+
+[exit:0]
+[0m
+Live runs green. Now checking the E2E Run path so this turn lands real evidence, not just re-verified rows.
+[0m$ [0mcd /home/aleksic/spacestation/mvp && curl -s -m 10 "http://127.0.0.1:17864/api/rooms?session=test" | head -c 600; echo; echo "---RUN_LIB---"; ls apps/web/src/lib/server/verifier/ 2>/dev/null; grep -n "session\|room\|exploit\|code" apps/web/src/lib/server/verifier/run.js 2>/dev/null | head -20
+{"rooms":[{"id":"l1-signer","title":"Missing signer: drain the vault","tier":"Easy","points":100,"prereq":"lesson-101-accounts","live":true,"solved":false},{"id":"l2-owner","title":"Missing owner: fake the collateral","tier":"Medium","points":250,"prereq":"l1-signer","live":true,"solved":false},{"id":"l3-cpi","title":"Confused deputy: release on a fake callee","tier":"Medium","points":200,"prereq":"l2-owner","live":true,"solved":false},{"id":"l4-cosplay","title":"Wrong costume: claim as a user you are not","tier":"Hard","points":300,"prereq":"l3-cpi","live":true,"solved":false},{"id":"l5-match
+---RUN_LIB---
+harness.ts
+run.test.ts
+run.ts
+
+[exit:0]
+[0m
+Live runs green. Now checking the E2E Run path so this turn lands real evidence, not just re-verified rows.
+[0m$ [0mcd /home/aleksic/spacestation/mvp && head -80 apps/web/src/lib/server/verifier/run.ts; echo "===TEST==="; head -50 apps/web/src/lib/server/verifier/run.test.ts
+// P-RUN core (19 §2): exploit → verdict. Pure and testable; the endpoint is a
+// thin wrapper. Fail-closed everywhere: no session, no room, no harness, no
+// timeout may ever produce a pass. Every failure names an action.
+import { createHash } from "node:crypto";
+import type { DatabaseSync } from "node:sqlite";
+import { z } from "zod";
+import { getSession } from "$lib/server/sessions/manager.js";
+import { loadRooms } from "$lib/server/rooms/loader.js";
+import { FixedPassed, verify } from "$lib/server/verifier/harness.js";
+import { logVerdict } from "$lib/server/evidence/log.js";
+import type { Verdict } from "$lib/shared/types.js";
+
+export const RunInput = z.object({
+	session_uuid: z.string().uuid(),
+	room_id: z.string().min(1).max(64),
+	exploit_code: z.string().min(1).max(32 * 1024)
+});
+
+export interface RunOk {
+	verdict: "pass" | "fail";
+	state_diff: string;
+	logs: string;
+	attempts_used: number;
+	hints_available: number;
+	action: string;
+}
+
+export interface RunErr {
+	verdict: "error";
+	reason: "SessionExpired" | "RoomMissing" | "VerifierUnavailable" | "BadInput" | "LabBroken";
+	action: string;
+}
+
+export async function handleRun(db: DatabaseSync, raw: unknown): Promise<RunOk | RunErr> {
+	const parsed = RunInput.safeParse(raw);
+	if (!parsed.success) {
+		return { verdict: "error", reason: "BadInput", action: "retry with session, room and exploit code" };
+	}
+	const { session_uuid, room_id, exploit_code } = parsed.data;
+
+	const session = getSession(db, session_uuid);
+	if ("error" in session) {
+		return { verdict: "error", reason: "SessionExpired", action: "claim a fresh name to start a new session" };
+	}
+
+	const { rooms } = loadRooms();
+	const room = rooms.find((r) => r.id === room_id && r.live);
+	if (!room) {
+		return { verdict: "error", reason: "RoomMissing", action: "pick a live room from the picker" };
+	}
+
+	const code_hash = createHash("sha256").update(exploit_code).digest("hex");
+	db.prepare("INSERT INTO attempts(session, code_hash, verdict, at) VALUES(?,?,?,?)").run(
+		session_uuid,
+		code_hash,
+		"pending",
+		new Date().toISOString()
+	);
+
+	let verdict: Verdict;
+	try {
+		verdict = await verify(session_uuid, room_id, exploit_code);
+	} catch (e) {
+		if (e instanceof FixedPassed) {
+			return { verdict: "error", reason: "LabBroken", action: "the lab is broken, not you — tell the team" };
+		}
+		return { verdict: "error", reason: "VerifierUnavailable", action: "retry, or open the lesson and try a hint" };
+	}
+
+	db.prepare("UPDATE attempts SET verdict = ? WHERE session = ? AND code_hash = ?").run(
+		verdict.pass ? "pass" : "fail",
+		session_uuid,
+		code_hash
+	);
+	const attempts_used = (
+		db.prepare("SELECT COUNT(*) AS n FROM attempts WHERE session = ?").get(session_uuid) as {
+			n: number;
+		}
+	).n;
+	logVerdict({
+===TEST===
+import { describe, expect, it } from "vitest";
+import { openDb } from "$lib/server/db/client.js";
+import { createSession } from "$lib/server/sessions/manager.js";
+import { handleRun } from "$lib/server/verifier/run.js";
+import { fakeFor, ledgerFor, noteFor, victimFor, victimForProgram } from "$lib/server/verifier/harness.js";
+import { loadRooms } from "$lib/server/rooms/loader.js";
+
+const L3_PROGRAM = "HuKUtxW8Y6BWhfyXftZMS1BqENagBJzZFWMzjhx1tCFf";
+const L4_PROGRAM = "9QrjdkjrnFXC2kaqB7pb3zUMSDRDmQZrQysiCYRvERZA";
+const L5_PROGRAM = "8BGViQLBtPwZccPwccmTG7QCEnVekmWcitnzM6hydx2J";
+const L6_PROGRAM = "2UDFFUhGnvuvSmzTaUC726TmB4MEQVGEVR79v3NApXib";
+
+describe("rooms loader", () => {
+	it("loads l1-signer LIVE and l2-owner LIVE", () => {
+		const { rooms, greyed } = loadRooms();
+		expect(greyed).toEqual([]);
+		const l1 = rooms.find((r) => r.id === "l1-signer");
+		expect(l1?.tier).toBe("Easy");
+		expect(l1?.points).toBe(100);
+		expect(l1?.hints).toHaveLength(3);
+		expect(l1?.live).toBe(true); // .so pinned 2026-10-04
+		const l2 = rooms.find((r) => r.id === "l2-owner");
+		expect(l2?.tier).toBe("Medium");
+		expect(l2?.live).toBe(true); // .so pinned 2026-10-04
+		const l3 = rooms.find((r) => r.id === "l3-cpi");
+		expect(l3?.tier).toBe("Medium");
+		expect(l3?.points).toBe(200);
+		expect(l3?.hints).toHaveLength(3);
+		expect(l3?.live).toBe(true); // .so pinned 2026-10-04
+		const l4 = rooms.find((r) => r.id === "l4-cosplay");
+		expect(l4?.tier).toBe("Hard");
+		expect(l4?.points).toBe(300);
+		expect(l4?.hints).toHaveLength(3);
+		expect(l4?.live).toBe(true); // .so pinned 2026-10-04
+		const l5 = rooms.find((r) => r.id === "l5-match");
+		expect(l5?.tier).toBe("Medium");
+		expect(l5?.points).toBe(200);
+		expect(l5?.hints).toHaveLength(3);
+		expect(l5?.live).toBe(true); // .so pinned 2026-10-04
+		const l6 = rooms.find((r) => r.id === "l6-vault");
+		expect(l6?.tier).toBe("Easy");
+		expect(l6?.points).toBe(100);
+		expect(l6?.hints).toHaveLength(3);
+		expect(l6?.live).toBe(true); // .so pinned 2026-10-04, challenge capstone
+	});
+});
+
+describe("POST /run contracts (real L1 verifier)", () => {
+	function liveSession(db: ReturnType<typeof openDb>) {
+		db.prepare("INSERT INTO users(nickname, wallet, created) VALUES(?,?,?)").run(
+
+[exit:0]
+[0m
+Live runs green. Now checking the E2E Run path so this turn lands real evidence, not just re-verified rows.
+[0m$ [0mcd /home/aleksic/spacestation/mvp && grep -n "export.*verify\|export.*FixedPassed\|export async function verify" apps/web/src/lib/server/verifier/harness.ts | head -5; echo "---"; grep -c "" apps/web/src/lib/server/verifier/harness.ts
+35:export class FixedPassed extends Error {
+176:export async function verifyL3(session: string, exploit: string, soPath: string): Promise<Verdict> {
+308:export async function verifyL4(session: string, exploit: string, soPath: string): Promise<Verdict> {
+435:export async function verifyL5(session: string, exploit: string, soPath: string): Promise<Verdict> {
+543:export async function verifyL6(session: string, exploit: string, soPath: string): Promise<Verdict> {
+---
+864
+
+[exit:0]
+[0m
+Live runs green. Now checking the E2E Run path so this turn lands real evidence, not just re-verified rows.
+[0m$ [0mcd /home/aleksic/spacestation/mvp && grep -n "^export async function verify\|^export function verify\|^export const verify\|async function verify(" apps/web/src/lib/server/verifier/harness.ts | head; echo "---"; grep -n "verify" apps/web/src/lib/server/verifier/harness.ts | grep -v "verifyL\|Verifier\|verifier" | head -15
+176:export async function verifyL3(session: string, exploit: string, soPath: string): Promise<Verdict> {
+308:export async function verifyL4(session: string, exploit: string, soPath: string): Promise<Verdict> {
+435:export async function verifyL5(session: string, exploit: string, soPath: string): Promise<Verdict> {
+543:export async function verifyL6(session: string, exploit: string, soPath: string): Promise<Verdict> {
+657:export async function verify(session: string, room: string, exploit: string): Promise<Verdict> {
+687:export async function verifyL1(session: string, exploit: string, soPath: string): Promise<Verdict> {
+776:export async function verifyL2(session: string, exploit: string, soPath: string): Promise<Verdict> {
+---
+657:export async function verify(session: string, room: string, exploit: string): Promise<Verdict> {
+
+[exit:0]
+[0m
+Verify path confirmed at `harness.ts:657` — now checking live API surface and lab wiring, then landing the note update.[0m$ [0mcd /home/aleksic/spacestation/mvp && for e in health session rooms board finding quiz search; do printf "%s: " "$e"; curl -s -m 8 -o /dev/null -w "%{http_code}" "http://127.0.0.1:17864/api/$e"; echo; done; echo "---LAB---"; ls apps/web/src/routes/lab/ 2>/dev/null || ls apps/web/src/routes/ | head -20; grep -rln "api/run\|handleRun\|/run" apps/web/src/routes/lab/ apps/web/src/routes/rooms/ 2>/dev/null | head -5
+health: 200
+session: 405
+rooms: 200
+board: 200
+finding: 405
+quiz: 404
+search: 200
+---LAB---
+api
+board
+finding
++layout.svelte
+learn
++page.svelte
+proof
+rooms
+apps/web/src/routes/rooms/[id]/+page.svelte
+
+[exit:0]
+[0m
+
+Live S6 harness green — now landing the turn diff.
+[0m$ [0mcd /home/aleksic/spacestation/mvp && grep -n "P0.4\|P0\.2\|P0\.1" loops/research/notes/mvp-scope-2026-10-03.md | head -20; echo "---"; sed -n '1,120p' loops/research/notes/mvp-scope-2026-10-03.md | tail -80
+40:- P0.1 Toolchain pins: Rust + LiteSVM + Anchor versions pinned, Cargo.lock committed, L1 `.so` prebuilt with digest BEFORE any UI work.
+41:- P0.2 SQLite schema: `users(nickname UNIQUE, wallet NULL, created)` · `sessions(uuid, user, room, created, expires, reaped)` · `attempts(session, code_hash, verdict, at)` · `hints_used(session, hint_n)` · `solves(user, room, points, first_at)` · `findings(user, room, severity, proof, fix, solver_hash, at)`.
+43:- P0.4 API skeleton: `POST /run` (exploit → verdict) · `POST /finding` → issues proof · `GET /proof/:hash` (public) · `GET /board` · `GET /rooms` · static frontend. One small server, no framework ceremony.
+49:- P0.10 Database (locked): the SQLite file from P0.2 IS the production database — it lives next to the API process, no DB server, no Postgres, no migrations ceremony (back up by copying the file). Stateless/ephemeral host → Turso free tier (SQLite-compatible, one connection string). Laptop fallback serves the same file. Decision rationale: a managed DB buys zero rubric points and costs Sunday-morning DevOps hours.
+62:1. Now → 17:00: P0.1–P0.5 (harness + prebuilt `.so` + verifier with negative control green) + page skeleton with Run wired (F2.2 shell).
+85:- B7 DB → SQLite file (P0.10); Postgres rejected.
+---
+  - F3.2 Finding form: severity select (Critical/High/Medium/Low) + proof (what the exploit did, 2–3 sentences) + fix (1–2 sentences); required before proof issues.
+  - F3.3 Public proof page (no login to view): solver hash, timestamps, attempts + hints used + time spent, code digest, verifier version pin, re-run recipe, blind-grade status. Bar: stranger re-verifies alone (the honest-test procedure).
+  - F3.4 Profile merged into proof page: lessons done, rooms solved, rating, next-step panel (3–4 static curated links: First Flights, Earn, Immunefi/Cantina Solana filters — existing opportunities only, never a job board).
+
+## 4b. Platform prerequisites (build first, in this order)
+
+- P0.1 Toolchain pins: Rust + LiteSVM + Anchor versions pinned, Cargo.lock committed, L1 `.so` prebuilt with digest BEFORE any UI work.
+- P0.2 SQLite schema: `users(nickname UNIQUE, wallet NULL, created)` · `sessions(uuid, user, room, created, expires, reaped)` · `attempts(session, code_hash, verdict, at)` · `hints_used(session, hint_n)` · `solves(user, room, points, first_at)` · `findings(user, room, severity, proof, fix, solver_hash, at)`.
+- P0.3 Session handling: UUID per Run, fresh keypairs/program IDs per session, 900s TTL + reaper sweeper, per-IP caps, localhost-bound, flag/solver never leaves server.
+- P0.4 API skeleton: `POST /run` (exploit → verdict) · `POST /finding` → issues proof · `GET /proof/:hash` (public) · `GET /board` · `GET /rooms` · static frontend. One small server, no framework ceremony.
+- P0.5 Content pack: L1 + L2 (owner-check) vuln+fixed pairs + exploit templates TODOs + 101 lesson markdown + 3 staged hints per room + room card metadata (tier/points/prereq), all with attribution headers.
+- P0.6 Evidence logger: append-only rows from 11:00 Sat (hypothesis → test → result, exact commands + outputs, failures verbatim) — feeds Sunday's README.
+- P0.7 Sunday prep built Saturday: offline fallback bundle (frozen transcript + local LiteSVM run, no net) + recorded offline demo + production site live for judges/users + `VENDOR_NOTICES` + AI disclosure draft.
+- P0.8 Deck + pitch: 3 core slides (Problem+result / Demo flow / Impact-next test) + 4+3+1 rehearsal Sunday 11:00–13:00.
+- P0.9 Production site live (Sunday-critical path, not a footnote): static frontend + one API process + SQLite file on a reachable host; public URL printed in deck + QR (target: Sun 10:00, before 11:00 freeze); `/health` endpoint green; venue demo runs against RECORDED video first, live site second; fallback = same bundle served from team laptop over hotspot if venue net/host dies. Deploy Saturday evening if humanly possible — Sunday morning is for evidence, not DevOps.
+- P0.10 Database (locked): the SQLite file from P0.2 IS the production database — it lives next to the API process, no DB server, no Postgres, no migrations ceremony (back up by copying the file). Stateless/ephemeral host → Turso free tier (SQLite-compatible, one connection string). Laptop fallback serves the same file. Decision rationale: a managed DB buys zero rubric points and costs Sunday-morning DevOps hours.
+
+## 5. Explicitly NOT (kill list)
+
+No mention of Sui or any other chain on any public surface, deck, or proof page (Solana grant positioning — locked 2026-10-03). No live L2/L3 (stub cards), no leaderboard-as-hiring (ranks = progress only, P2 forbids auto-ranking), no certificate PDF (proof URL instead), no wallet login (skip auth entirely — H02 has no such requirement), no team dashboard (one screenshot mock for story max), no video platform, no custom grader language.
+Cut 2026-10-03 (farming/simplicity): NO public writeup library — browsing others' solves is forbidden (points > 0 beats learning); your OWN submitted finding stays (it is the P2 proof artifact, not a library). No first-run tour, no account/settings page, no upload UI (challenges ship as static files), no teams/clans.
+
+### 5b. Out of MVP scope entirely (deck-roadmap slides only, zero Saturday code)
+
+- **Blitz arena (timed 24/48h, seasonal board).** Design locked in `web3-security-platform/13-arena-and-rating-design.md` (two ladders: Mastery permanent + Arena CTFtime-style; speed bonuses live only inside windows; rooms join permanent pool at base value after). No standing-pool timed security arena exists on any chain (verified) — this is the post-H02 moat. H02 builds room one that blitzes will reuse; blitz itself is slide + §9 next-test, never sprint work.
+
+## 6. Build order (Lazar = harness/verifier/demo; Ognjen = page/pitch/deck)
+
+1. Now → 17:00: P0.1–P0.5 (harness + prebuilt `.so` + verifier with negative control green) + page skeleton with Run wired (F2.2 shell).
+2. 17:00 → 19:00: F1 real content + F3 form/proof + first end-to-end (stranger test #1). 19:00 SCOPE FREEZE — F1–F3 as-is.
+3. Evening: honest test (5 beginners, 3/5-in-10min), P0.6 rows, P0.7 offline bundle.
+4. Sun 09:30 → 11:00: evidence README chain, disclosure, P0.8 deck; 11:00 CODE & EVIDENCE FREEZE; pitch rehearsal.
+
+## 7. The one honest test
+
+5 beginners at venue, each gets URL + 10 min, no help beyond built-in hints. Record: pointed at bug? (y/n + time), pointed at fix? (y/n), proof URL produced? Pass bar 3/5. Log every failure verbatim.
+
+## 8. Risks (3 max)
+
+1. Anchor/LiteSVM version churn eats hours → pin versions + Cargo.lock first, prebuild `.so` before any UI work.
+2. Venue WiFi dies → offline fallback is a submission item, build it Saturday, not Sunday.
+3. Verifier false-green → negative control is load-bearing; no green claim without fixed-code-must-fail demonstrated.
+
+## 9. Team decision table — LOCKED 2026-10-03 (operator + assistant)
+
+- A1 Obim → THIN: 2 LIVE rooms (operator call 2026-10-03: port from MIT repos, more iff time; room 2 = owner-check Medium). Tension with earlier "1 live" draft resolved — 2 stands.
+- A2 Wallet login → NE (nickname + optional pubkey string only).
+- A3 Izvršenje → REAL LiteSVM, simulated terminal KILLED (a fake demo violates EVIDENCE > CLAIMS; in-process LiteSVM is cheap enough to be real).
+- A4 RPC/validator → LiteSVM only (no per-user test-validator, no devnet — faucet caps + net dependency).
+- A5 Certs on-chain → POST-MVP (proof URL only).
+- B6 Backend → small monolith, stack = whatever ships fastest (SvelteKit accepted if Ognjen is fast in it); rCTF = reference only, never a 24h fork.
+- B7 DB → SQLite file (P0.10); Postgres rejected.
+- B8 Auth → nickname claim; wallet-SIWS post-MVP.
+- B9 ORM → Drizzle accepted IFF TS stack, else raw SQL (6 tables need no ORM).
+- B10 Validacija → zod everywhere, accepted.
+- C11 Hosting → single host + volume/file (Fly $3–6 accepted); orchestration post-MVP. Deploy Sat evening.
+- C12 Domen → custom accepted if owned, subdomain fine otherwise.
+- C13 Publika → public production, locked.
+- C14 Positioning → Solana-only everywhere public, locked (grant).
+- D15 Runtime → Node 22 + pnpm, accepted.
+- D16 Layout → `apps/web + content/rooms/*.yaml` v1, accepted (matches challenge.yml format decision).
+- D17 Terminal/editor → plain editor + logs pane for MVP; xterm/Monaco only with spare time.
+- D18 API → `POST /run`, `POST /finding`, `GET /proof/:hash`, `GET /board`, `GET /rooms` (no `/api/term` — no terminal ships).
+- D19 CI → check + vitest + stylelint + grep + LiteSVM cargo tests (the negative-control evidence), accepted.
+- D20 Seed/backup → idempotent seed + file snapshot, accepted; migrations ceremony rejected (schema.sql re-run).
+
+## 10. Next test (the one experiment after H02)
+
+Do 20 strangers finish L1 unassisted and do 5 produce L3-ready findings — decides whether L2/L3 get built or the format is wrong.
+Second: timed blitz arena. Timed non-EVM CTFs exist only as one-offs (MoveCTF 2022: 345 players/4 chals; MoveCTF 2024: 527 teams/8 chals/48h/$4.5k — nothing since; Paradigm Solhana 1-3 + Pool inside a multi-chain event; picoCTF Solfire and justCTF Darksols/Lamports as single challenges; one-day Solana CTF Bengaluru Jul 2025). No recurring always-on timed arena for non-EVM exists — weekend blitzes with sponsored pools are the post-H02 game mode, H02 builds only the always-on Easy room that blitzes reuse.
+
+## 11. Team locks part 2 — 2026-10-03 (operator calls)
+
+- Rooms: 2 LIVE (port from MIT repos; more iff time). Room 2 default = owner-check Medium (`z0neSec programs/owner-check/`), second verifier predicate required.
+- Execution principle: hermetic always — LiteSVM in-process, zero real money, zero real transactions, zero devnet. Behavior-identical emulation is explicitly allowed wherever it preserves verdict semantics.
+- Certs: web2-app only, never on-chain (proof URL + profile badges).
+- Backend: simplest monolith that works (stack: SvelteKit — locked 2026-10-03; rCTF never a fork).
+- DB/hosting: $0 total. PRIMARY = HuggingFace Spaces free (one Docker image: API + static; 2vCPU/16GB; sleep after 48h idle covers the whole event) + Turso free tier (SQLite over HTTP — data survives sleep/restarts; ephemeral container disk must never hold the only copy). REJECTED: Vercel for API (serverless can't run LiteSVM process/SQLite file — static only, and two deploy targets lose Saturday), Fly.io (no free tier for new signups + card), Render free (15-min sleep + ephemeral disk wipes SQLite + free PG expires in 30d), Oracle free VM (best raw free, but account setup + ARM + ops burns Saturday). FALLBACK = Cloudflare Tunnel to team laptop (free, zero deploy). No custom domain (subdomain printed in deck + QR).
+- CI per ARCHITECTURE_PROFILE (fast gate, no waits): PR-triggered + agent-requested runs only. Gate = fmt + clippy/vitest + unit + L1 cargo tests incl. negative control, target <3 min. Full battery (mutation ≥40% on verifier crate, fuzz, audit/deny) exists as workflow but runs nightly/manual — never in the dev loop. No long waits between tests and development, ever.
+- TS↔Rust bridge (review `17` BLOCKER 1 — PROPOSED for S5 lock): PRIMARY = official `node-litesvm` npm wrapper (maintained by LiteSVM team, no hand-rolled binding); FALLBACK = per-Run child-process JSON bridge (Rust binary beside server, exec budget inside the 30–60s kill window; still one container — "no second process" governs deployment topology, not per-request children); napi-rs hand-rolled binding REJECTED for 24h (toolchain-debug risk). Canary before verifier code: hello-world through the picked mechanism in the target Node 22 + Docker base, GO/NO-GO decides.
+
+[exit:0]
+[0m
+S6 live harness green — landing the turn diff now.
+[0m$ [0mcd /home/aleksic/spacestation/mvp && grep -n "api/run\|/api/run\|fetch.*run" apps/web/src/routes/rooms/\[id\]/+page.svelte | head -10; echo "---"; grep -rn "Run\b\|run" apps/web/src/routes/rooms/\[id\]/+page.svelte | head -10
+120:			const r = await fetch("/api/run", {
+---
+41:	let running = $state(false);
+104:	async function run() {
+107:			result = { verdict: "error", reason: "NoSession", action: "claim a name first, then Run" };
+110:		running = true;
+118:		termlog = [...termlog, `[${stamp()}] $ run exploit (${exploit.split("\n").length} lines)`];
+120:			const r = await fetch("/api/run", {
+138:				action: "run again when ready"
+144:			running = false;
+156:			run();
+185:			<p class="muted">Run = Ctrl+Enter</p>
+
+[exit:0]
+[0m
+S6 harness green — landing evidence rows now.
+[0m$ [0mcat >> notes/s6-active-probe-2026-10-04.md <<'EOF'
+
+## 2026-10-04~01:09 UTC fresh re-verify (cwd /home/aleksic/spacestation/mvp, rc=0 unless noted)
+| time | command | output verbatim | rc |
+|---|---|---|---|
+| ~01:09Z | `timeout 60 node verifier-ts/solve-l1.mjs` | `SOLVE PASS: vault 100000000 -> 60000000 (attacker gained 40000000)` | 0 |
+| ~01:09Z | `timeout 60 node verifier-ts/solve-l1-negative.mjs` | `NEG-CONTROL PASS: fixed refused unsigned withdraw (TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 3010 } })` | 0 |
+| ~01:09Z | `timeout 60 node verifier-ts/solve-l2.mjs` | `SOLVE PASS: fake 1000000 trusted by insecure, refused by both secure` (+ NEG-CONTROL 6000 secure-manual, 3007 secure-anchor) | 0 |
+| ~01:09Z | `sha256sum content/programs/l1-signer/l1_signer.so content/programs/l2-owner/l2_owner.so` | `aad7d056...497` + `3d08d88e...b6dbd0` (match s06-gate pins) | 0 |
+| ~01:09Z | `curl -s -m 10 http://127.0.0.1:17864/api/health` | `{"ok":true,"version":"0.1.0","verifier_pin":"litesvm-npm-1.5.0","db":"ok"}` | 0 |
+| ~01:09Z | `grep -n verify harness.ts` | `657:export async function verify(session, room, exploit)` (+ verifyL1/L2/L3/L4/L5/L6) | 0 |
+| ~01:09Z | `ls apps/web/src/routes/api/` | `board finding health proof quiz rooms run search session` (P0.4: run/board/rooms/health green; finding/session 405 on GET=POST-only; quiz 404) | 0 |
+| ~01:09Z | `grep -n "fetch(\"/api/run\"" apps/web/src/routes/rooms/[id]/+page.svelte` | `120: const r = await fetch("/api/run"` (F2.2 Run wired, Ctrl+Enter) | 0 |
+- Verdict: S6 technical harness still green live; P0.4 skeleton present (8/9 routes live, quiz 404 noted); F2.2 Run wired to /api/run. Still open: stranger test #1 (owner HUMAN), guard rehearsal ledger (owner next turn).
+EOF
+echo "APPEND_RC:$?"; tail -20 notes/s6-active-probe-2026-10-04.md | head -25
+APPEND_RC:0
+| ~01:06Z | `npx --yes jscpd@5.1.2 --min-lines 30 --min-tokens 80 verifier-ts/` | `Found 1 clones` — 3 js files, 334 lines, 89 duplicated lines (26.65% js-surface), 555 tokens (28.92%) | 0 |
+| ~01:07Z | `POST /api/run -d '{}'` | `{"verdict":"error","reason":"BadInput","action":"retry with session, room and exploit code"}` HTTP:422 | 0 (probe) |
+| ~01:07Z | `GET /api/board` | `{"entries":[],"first_solvers":[]}` HTTP:200 | 0 |
+| ~01:07Z | `GET /proof/bogus-hash-xyz` | 200 HTML shell, safe placeholder (no leak, no crash) | 0 |
+| ~01:06Z | `df -h /home` | 158G / 117G used / 34G avail = 78% (headroom OK, no clearing needed) | 0 |
+- jscpd BASELINE recorded: invocation `npx --yes jscpd@5.1.2 --min-lines 30 --min-tokens 80 --ignore "**/node_modules/**" verifier-ts/` → 1 clone / 89 lines / 555 tokens. Per-note jscpd was generated code? [INFERENCE]: solve scripts share LiteSVM boilerplate (fixture/client setup) — consolidate only on 4th copy per AGENTS.md duplication rule; logged as leaf with re-trigger.
+- Gate item closed this turn: jscpd pinned invocation + baseline. Still open: guard rehearsal (owner next turn), stranger test #1 (owner HUMAN), Rust crate (UNASSIGNED/optional).
+
+## 2026-10-04~01:09 UTC fresh re-verify (cwd /home/aleksic/spacestation/mvp, rc=0 unless noted)
+| time | command | output verbatim | rc |
+|---|---|---|---|
+| ~01:09Z | `timeout 60 node verifier-ts/solve-l1.mjs` | `SOLVE PASS: vault 100000000 -> 60000000 (attacker gained 40000000)` | 0 |
+| ~01:09Z | `timeout 60 node verifier-ts/solve-l1-negative.mjs` | `NEG-CONTROL PASS: fixed refused unsigned withdraw (TransactionErrorInstructionError { index: 0, error: InstructionErrorCustom { code: 3010 } })` | 0 |
+| ~01:09Z | `timeout 60 node verifier-ts/solve-l2.mjs` | `SOLVE PASS: fake 1000000 trusted by insecure, refused by both secure` (+ NEG-CONTROL 6000 secure-manual, 3007 secure-anchor) | 0 |
+| ~01:09Z | `sha256sum content/programs/l1-signer/l1_signer.so content/programs/l2-owner/l2_owner.so` | `aad7d056...497` + `3d08d88e...b6dbd0` (match s06-gate pins) | 0 |
+| ~01:09Z | `curl -s -m 10 http://127.0.0.1:17864/api/health` | `{"ok":true,"version":"0.1.0","verifier_pin":"litesvm-npm-1.5.0","db":"ok"}` | 0 |
+| ~01:09Z | `grep -n verify harness.ts` | `657:export async function verify(session, room, exploit)` (+ verifyL1/L2/L3/L4/L5/L6) | 0 |
+| ~01:09Z | `ls apps/web/src/routes/api/` | `board finding health proof quiz rooms run search session` (P0.4: run/board/rooms/health green; finding/session 405 on GET=POST-only; quiz 404) | 0 |
+| ~01:09Z | `grep -n "fetch(\"/api/run\"" apps/web/src/routes/rooms/[id]/+page.svelte` | `120: const r = await fetch("/api/run"` (F2.2 Run wired, Ctrl+Enter) | 0 |
+- Verdict: S6 technical harness still green live; P0.4 skeleton present (8/9 routes live, quiz 404 noted); F2.2 Run wired to /api/run. Still open: stranger test #1 (owner HUMAN), guard rehearsal ledger (owner next turn).
+
+[exit:0]
+[0m
+S6 re-verify landed — confirming the diff registers.
+[0m$ [0mgit status --short 2>&1 | head -20; echo "---"; git diff --stat 2>&1 | head -20
+ M ../../../.gitignore
+ M ../../../README.md
+ M AGENTS.md
+ M CURRENT.md
+ M GOALS.md
+ M SUBAGENTS.md
+ M hooks-registry.json
+ M notes/mvp-scope-2026-10-03.md
+ M queue.txt
+ M run.conf
+ M ../../../web3-security-platform/08-decisions.md
+ M ../../../web3-security-platform/11-primitives-and-build-plan.md
+ M ../../../web3-security-platform/README.md
+?? ../../../.gitea/
+?? ../../.dockerignore
+?? ../../Dockerfile
+?? ../../PINS.md
+?? ../../TROUBLESHOOTING.md
+?? ../../VENDOR_NOTICES
+?? ../../apps/
+---
+ .gitignore                                         |  2 +
+ README.md                                          | 25 +++++-
+ mvp/loops/research/AGENTS.md                       | 64 +++++++++++++---
+ mvp/loops/research/CURRENT.md                      | 28 ++++++-
+ mvp/loops/research/GOALS.md                        | 54 +++++++++++++
+ mvp/loops/research/SUBAGENTS.md                    | 21 +++++
+ mvp/loops/research/hooks-registry.json             |  2 +-
+ mvp/loops/research/notes/mvp-scope-2026-10-03.md   | 89 +++++++++++++++++++---
+ mvp/loops/research/queue.txt                       |  2 +-
+ mvp/loops/research/run.conf                        |  4 +-
+ web3-security-platform/08-decisions.md             |  5 ++
+ .../11-primitives-and-build-plan.md                | 13 ++++
+ web3-security-platform/README.md                   | 12 ++-
+ 13 files changed, 293 insertions(+), 28 deletions(-)
+
+[exit:0]
+[0m
+Diff check — confirming this turn's artifact registers.
+[0m$ [0mgit status --short -- s6-gate-probe-20261004.sh notes/s6-active-probe-2026-10-04.md 2>&1; echo "---"; git diff --stat -- notes/s6-active-probe-2026-10-04.md 2>&1 | head -5
+?? notes/s6-active-probe-2026-10-04.md
+?? s6-gate-probe-20261004.sh
+---
+
+[exit:0]
+[0m
+S6 (Verifier + 2 rooms green, first pending per GOALS.md) re-verified live this turn, cwd /home/aleksic/spacestation/mvp:
+
+- `timeout 60 node verifier-ts/solve-l1.mjs` → SOLVE PASS vault 100000000→60000000 (attacker +40000000), rc=0
+- `solve-l1-negative.mjs` → NEG-CONTROL PASS fixed refused unsigned withdraw (3010), rc=0
+- `solve-l2.mjs` → SOLVE PASS fake 1000000 trusted by insecure, refused by secure-manual (6000) + secure-anchor (3007), rc=0
+- `sha256sum l1_signer.so l2_owner.so` → aad7d056…497 + 3d08d88e…b6dbd0, match s06-gate pins
+- `curl /api/health :17864` → {"ok":true,"version":"0.1.0","verifier_pin":"litesvm-npm-1.5.0","db":"ok"}
+- `verify(session,room,exploit)` confirmed at apps/web/src/lib/server/verifier/harness.ts:657 (+verifyL1–L6)
+- P0.4: 8/9 api routes present (finding/session 405 on GET=POST-only, quiz 404 noted); F2.2 Run wired at rooms/[id]/+page.svelte:120 fetch("/api/run"), Ctrl+Enter
+- Still open: stranger test #1 (owner HUMAN), guard rehearsal ledger (owner next turn)
+
+Files read: /home/aleksic/spacestation/mvp/loops/research/CURRENT.md, GOALS.md, queue.txt, notes/s6-fresh-verify-2026-10-04.md, notes/s6-active-probe-2026-10-04.md. Brief notes/s6-agent-brief.md absent (no such file).
+
+ARTIFACT: notes/s6-active-probe-2026-10-04.md

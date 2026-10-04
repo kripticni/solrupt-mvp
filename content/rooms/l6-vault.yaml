@@ -1,0 +1,28 @@
+# L6 room: insecure vault capstone (19 §4.3 challenge schema).
+id: l6-vault
+title: "Vault raid: drain 100% in one transaction"
+tier: Easy
+points: 100
+prereq: l5-match
+program:
+  vuln: content/programs/l6-vault/src/lib.rs
+  fixed: content/programs/l6-vault/src/lib.rs
+  so: content/programs/l6-vault/l6_vault.so
+  so_digest: ac17e875f02c5ca00a94cba3eb1edc8bbcf9b421fef6e838f2a8d5f2b9c0a2a9 # anchor build 2026-10-04, solana 2.3.0 + anchor 0.32.2
+template: content/programs/l6-vault/exploit-template.txt
+hints:
+  - "Challenge room: no walkthrough. The withdraw struct holds a vault and a caller. Read what types they are and what the body never asks."
+  - "There is no check to bypass. The door was never built: no signer, no compare, no relationship."
+  - "Full drain or fail: the verifier demands zero remainder. Sign as yourself, take everything, then watch withdraw_secure refuse the same shape."
+checks:
+  pass_when: vault_fully_drained_in_one_transaction
+  negative_control: same_exploit_vs_fixed_must_fail
+pins:
+  anchor: 0.32.2
+  litesvm: 0.17.0
+  rust: 1.97.1
+attribution:
+  repo: z0neSec/solsec-workshop
+  license: MIT
+  sha: 15074547581430b866b81c56dd1fde98e9a7e13d
+  author: z0neSec

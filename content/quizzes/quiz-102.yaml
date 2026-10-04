@@ -1,0 +1,41 @@
+# Quiz for lesson 102-owner-pda. Answers are SERVER-ONLY (see quiz-101 header).
+id: quiz-102
+lesson: 102-owner-pda
+points_total: 15
+questions:
+  - id: q1
+    q: "A lending program reads bytes 64..72 of an account as a token balance. The account is owned by the System program and the attacker wrote 1_000_000 at those offsets. What is the program's mistake?"
+    choices:
+      - "It read the wrong byte offsets for the amount field"
+      - "It never verified which program owns the account before trusting its bytes"
+      - "It forgot to check the signer's lamport balance"
+      - "It forgot to convert lamports to SOL before comparing"
+    answer: 1
+    points: 5
+    severity: Critical
+    explain: "Anyone can create a System-owned account with any bytes. Ownership first, parsing second: Account<TokenAccount> verifies the Token program owns the bytes before they are trusted."
+    review: "Who owns this account?"
+  - id: q2
+    q: "A PDA is derived from seeds plus a bump and has no private key. Why must the bump be stored in the account and reused instead of accepted from the caller?"
+    choices:
+      - "Bumps are secret and must never appear onchain"
+      - "A caller supplied bump lets an attacker grind a colliding address the program never authorized"
+      - "Stored bumps save compute units on every call"
+      - "The runtime rejects transactions that pass a bump explicitly"
+    answer: 1
+    points: 5
+    severity: High
+    explain: "Only the canonical bump yields the address the program can sign for. Accepting a caller bump lets an attacker steer derivation to an address outside the program's control."
+    review: "PDAs: the same idea, one level up"
+  - id: q3
+    q: "Which Anchor type verifies owner, deserialization, and discriminator before the instruction body runs?"
+    choices:
+      - "AccountInfo"
+      - "UncheckedAccount"
+      - "Account<T>"
+      - "Signer"
+    answer: 2
+    points: 5
+    severity: High
+    explain: "Account<T> checks all three at the validation phase. AccountInfo and UncheckedAccount skip every check, so reaching for them should trigger extra scrutiny."
+    review: "The fix"

@@ -1,0 +1,6 @@
+[package]
+name = "cpufeatures"
+version = "0.3.2"
+description = "LOCAL SHIM (see README.SHIM): minimal API-compatible subset of cpufeatures 0.3.2. Only the `new!` macro used by blake3. REPLACE with the real crate when platform cargo >= 1.85."
+edition = "2021"
+license = "MIT OR Apache-2.0"

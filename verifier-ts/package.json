@@ -1,0 +1,11 @@
+{
+  "name": "verifier-ts-canary",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "dependencies": {
+    "@solana-program/system": "^0.15.0",
+    "@solana/kit": "^8.4.0",
+    "litesvm": "1.5.0"
+  }
+}
