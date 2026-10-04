@@ -143,14 +143,6 @@
 			proves, the one word fix. Then open the room and drain the vault.
 		</p>
 	</div>
-	<div class="panel">
-		<h3>How is the verdict honest?</h3>
-		<p class="muted">
-			The verifier reads account state, never log text. Every pass ships
-			with a negative control: the same exploit must fail against the
-			fixed program, or there is no green.
-		</p>
-	</div>
 </div>
 
 <div class="panel hero-ok">

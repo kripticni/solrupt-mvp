@@ -220,10 +220,10 @@
 			{#if result.action}<p class="muted">Next: {result.action}</p>{/if}
 		</div>
 	{/if}
-	<h2>Claim a name</h2>
+	<h2>Claim a nickname</h2>
 	<label for="nick">Nickname</label>
 	<input id="nick" bind:value={nickname} placeholder="nickname" />
-	<div><button class="btn-ghost" onclick={claim}>Claim a name</button></div>
+	<div><button class="btn-ghost" onclick={claim}>Claim a nickname</button></div>
 	{#if result?.verdict === "pass"}<a class="btn" href="/finding">Write your finding</a>{/if}
 	<h2>Hints</h2>
 	{#if lesson}<p class="muted">Stuck? <a href={`/learn/${lesson}`}>Review lesson {lesson}</a> first.</p>{/if}

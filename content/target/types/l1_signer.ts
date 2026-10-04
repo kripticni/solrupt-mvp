@@ -16,7 +16,7 @@ export type L1Signer = {
     {
       "name": "initializeVault",
       "docs": [
-        "Initialize a new vault for demonstration"
+        "Open a vault for demonstration."
       ],
       "discriminator": [
         48,
@@ -71,24 +71,14 @@ export type L1Signer = {
     {
       "name": "withdrawInsecure",
       "docs": [
+        "## INSECURE: authority compared, signature never checked",
         "",
-        "## [INSECURE] INSECURE: Missing Signer Check",
-        "",
-        "This instruction allows ANYONE to withdraw funds by simply passing any",
-        "public key as the `authority`. The program never verifies that the",
-        "authority actually signed the transaction.",
-        "",
-        "### Attack Scenario:",
-        "1. Alice has a vault with 100 SOL, authority = Alice's pubkey",
+        "Attack scenario:",
+        "1. Alice holds a vault (authority = Alice).",
         "2. Attacker calls `withdraw_insecure` with:",
-        "- vault = Alice's vault",
-        "- authority = Alice's pubkey (NOT signed by Alice!)",
-        "3. Program accepts it because it never checks if authority signed",
-        "4. Attacker steals Alice's 100 SOL",
-        "",
-        "### Why This Happens:",
-        "The `authority` field is typed as `AccountInfo`, which is just a raw",
-        "reference to any account. It doesn't enforce any security checks.",
+        "- vault = Alice's vault,",
+        "- authority = Alice's pubkey (passed, NOT signed).",
+        "3. The equality check compares names, never signatures. Funds move.",
         ""
       ],
       "discriminator": [
@@ -138,21 +128,12 @@ export type L1Signer = {
     {
       "name": "withdrawSecure",
       "docs": [
+        "## SECURE: the signature is checked before the body runs",
         "",
-        "## [SECURE] SECURE: Proper Signer Verification",
-        "",
-        "This instruction properly verifies that the authority has signed the",
-        "transaction using Anchor's `Signer<'info>` type.",
-        "",
-        "### How `Signer` Protects:",
-        "1. Anchor automatically checks `authority.is_signer == true`",
-        "2. If the account didn't sign, the transaction fails BEFORE your code runs",
-        "3. The check happens at the constraint validation phase",
-        "",
-        "### Attack Attempt (FAILS):",
-        "1. Attacker tries to call `withdraw_secure` with Alice's pubkey",
-        "2. Transaction fails immediately: \"Signature verification failed\"",
-        "3. Alice's funds are safe",
+        "`Signer<'info>` makes Anchor verify `is_signer` during validation, so",
+        "an unsigned authority fails before the instruction body executes.",
+        "Same shape, same inputs. The attacker's transaction never reaches",
+        "the equality check.",
         ""
       ],
       "discriminator": [
@@ -242,21 +223,21 @@ export type L1Signer = {
           {
             "name": "authority",
             "docs": [
-              "The authorized owner who can withdraw from this vault"
+              "Who may withdraw (checked against a Signer on the secure side)."
             ],
             "type": "pubkey"
           },
           {
             "name": "balance",
             "docs": [
-              "Current balance in lamports"
+              "Bookkeeping balance in lamports."
             ],
             "type": "u64"
           },
           {
             "name": "bump",
             "docs": [
-              "PDA bump seed"
+              "PDA bump seed."
             ],
             "type": "u8"
           }

@@ -24,6 +24,7 @@
 		--ink: #0a0d12;
 		--chip: #21262d;
 		--font-mono: ui-monospace, SFMono-Regular, Consolas, Liberation Mono, Menlo, monospace;
+		--scroll: #6e7681;
 		--r-sm: 4px;
 		--r-md: 12px;
 		--r-pill: 20px;
@@ -37,15 +38,18 @@
 	html {
 		background: var(--bg);
 		color-scheme: dark;
-		scrollbar-color: var(--line) transparent;
+		scrollbar-color: var(--scroll) transparent;
 		scrollbar-width: thin;
 	}
-	/* Themed scrollbars: thin dark thumb on transparent track so the
-	   container bg (page, panel, ink) shows through. Firefox uses the
-	   two properties above + below; Chromium uses the ::-webkit rules.
-	   Thumb = --line, hover = --muted. No hiding, no animation. */
+	/* Themed scrollbars: thin thumb on transparent track so the container
+	   bg (page, panel, ink, inputs) shows through. These global selectors
+	   cover every scroller on the site — page, textarea (exploit editor,
+	   finding form), pre, .codepane, .termbar — in both engines: Firefox
+	   uses the two properties above + below, Chromium the ::-webkit rules.
+	   Thumb = --scroll (mid-gray, visible on near-black inputs); hover =
+	   --muted. No hiding, no animation. */
 	* {
-		scrollbar-color: var(--line) transparent;
+		scrollbar-color: var(--scroll) transparent;
 		scrollbar-width: thin;
 	}
 	::-webkit-scrollbar {
@@ -56,7 +60,7 @@
 		background: transparent;
 	}
 	::-webkit-scrollbar-thumb {
-		background-color: var(--line);
+		background-color: var(--scroll);
 		border-radius: 8px;
 		border: 3px solid transparent;
 		background-clip: padding-box;
@@ -69,6 +73,11 @@
 	}
 	::-webkit-scrollbar-corner {
 		background: transparent;
+	}
+	/* Textarea resize grip: the default light grip glares on dark inputs,
+	   so tint it to the theme. (Firefox follows color-scheme: dark.) */
+	::-webkit-resizer {
+		background-color: var(--scroll);
 	}
 	/* Code/terminal horizontal scrollers stay slimmer than the page rail. */
 	pre::-webkit-scrollbar,
@@ -669,6 +678,7 @@
 			--accent: #0000cc;
 			--ink: #f2f2f2;
 			--chip: #eeeeee;
+			--scroll: #999999;
 		}
 		html {
 			color-scheme: light;

@@ -120,14 +120,3 @@
 		<p class="muted">Solver details appear with the proof record.</p>
 	{/if}
 </section>
-
-<section>
-	<h2>Next steps</h2>
-	<p>Existing places to keep practicing with real code:</p>
-	<ul>
-		<li><a href="https://codehawks.cyfrin.io/">First Flights (CodeHawks)</a></li>
-		<li><a href="https://earn.superteam.fun/">Superteam Earn</a></li>
-		<li><a href="https://immunefi.com/explore/">Immunefi Solana filter</a></li>
-		<li><a href="https://cantina.xyz/">Cantina</a></li>
-	</ul>
-</section>

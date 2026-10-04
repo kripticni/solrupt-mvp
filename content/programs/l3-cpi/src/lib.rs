@@ -9,8 +9,8 @@
 //! unchecked account, the caller, not your code, picks who runs.
 //!
 //! ## The vulnerability
-//! `release_insecure` invokes whatever program id it was handed, then updates
-//! its books as if a real token release happened. An attacker hands it a
+//! The insecure instruction invokes whatever program id it was handed, then
+//! updates its books as if a real token release happened. An attacker hands it a
 //! program that always returns Ok (in the wild: a fake token program they
 //! deployed; in this hermetic lab: our own `ping`, which answers Ok to
 //! anything). Books move, tokens never do.

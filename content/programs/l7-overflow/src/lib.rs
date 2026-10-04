@@ -4,13 +4,13 @@
 //! # Integer overflow: when subtraction adds a fortune
 //!
 //! ## Overview
-//! Rust panics on overflow in debug builds and silently WRAPS in release
+//! Rust panics on overflow in debug builds and silently wraps in release
 //! builds. Solana programs run as release BPF: `0 - 1` is not an error, it is
 //! `u64::MAX` (18.4 quintillion). Every plain `+`/`-` on a balance is a
 //! potential mint.
 //!
 //! ## The vulnerability
-//! `withdraw_insecure` subtracts with a bare `-` and no balance check. A vault
+//! The insecure instruction subtracts with a bare `-` and no balance check. A
 //! holding 100 units, asked for 101, does not refuse: it wraps to
 //! 18,446,744,073,709,551,615. The attacker turns pocket change into the
 //! largest representable fortune with one instruction.

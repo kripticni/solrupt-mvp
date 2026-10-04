@@ -1,6 +1,7 @@
 # GOALS — Spacestation Loop (mvp)
 
 > 2026-10-03: S1–S3 RETIRED — stara book-code ideja se ne gradi. Istorija ispod ostaje radi traga, nikakav rad po njoj. Novi MVP golovi stižu od operatora.
+> Oct 4 2026 retrack (operator): no outside testers, pitch later. S6 closed on the technical gate, S7 retired into S8, S9 deferred. Active path is S8 then S10 then S11.
 
 Format: S<n> with Status/Target/AI instructions. First `pending` = next work. A finished goal flips Status the same turn with a dated gate note — never park finished work. S-series avoids Q/G/R collision with brain-as-llm, fleet-ops, and tor-egress.
 
@@ -40,18 +41,19 @@ Format: S<n> with Status/Target/AI instructions. First `pending` = next work. A 
   2. Keep one decision table (§9) + one locks list (§11); new calls append there, never in chat only.
 
 ## S6: Verifier + 2 rooms green (Sat, before evening honest test)
-- **Status:** `pending` (spec: scope §§4–4b; design `web3-security-platform/19-detailed-design.md` P-RUN; arch `18-architecture.md` §14 order)
+- **Status:** `complete` (Oct 4 2026, gate: `notes/s06-closeout-2026-10-04.md`; operator ordered close, stranger test waived)
 - **Target:** P0.1 pins + L1/L2 `.so` prebuilt with digests + `verify(session,room,exploit)` green incl. NEGATIVE CONTROL (exploit vs fixed must fail, logged) + P0.2 schema + P0.4 five endpoints + F2.2 lab shell wired to Run; gate: honest-test-ready end-to-end (stranger test #1 passes).
+- **Waiver Oct 4 2026 (operator):** stranger test 1 is out. Technical gate alone closes this goal.
 - **AI instructions:**
   1. Bottom-up per arch §14: pins → verifier → API → UI; never debug the top when the bottom is unverified.
   2. Hermetic always: zero real money/txs/devnet; behavior-identical emulation allowed.
   3. Entry checklist (read before S6 code): scope §9+§11, `14` §2+§6+§9 pins, `15` §§1–7, `18` §§1–10+§14, `19` §§1–8, `16` both tracks + shared pre-flight; ship CI fast gate + svelte-check/stylelint/banned-grep + import-lint + jscpd with first code; F1 + F3 ride with the e2e gate, not later.
 
 ## S7: Honest test + evidence + offline (Sat evening)
-- **Status:** `pending` (spec: scope §§7–8; demo `web3-security-platform/16-demo-plan.md` Track A)
-- **Target:** 5 beginners × 10 min, 3/5 bar, every failure verbatim in P0.6 log; offline bundle passes with network disabled; VENDOR_NOTICES + AI disclosure drafted.
+- **Status:** `retired` (Oct 4 2026, operator: outside testing out of scope for this venue; evidence plus offline folded into S8)
+- **Target:** self run rehearsal of the lab protocol with verbatim failure log; offline bundle passes with network disabled; VENDOR_NOTICES + AI disclosure drafted.
 - **AI instructions:**
-  1. Negative/null result is valid iff transparent — never re-run subjects until green.
+  1. A null result is valid iff transparent. No repeat runs to chase green.
   2. Evidence rows carry exact commands + outputs; nothing reconstructed Sunday.
 
 ## S8: Freeze + production + demo order (Sun)
@@ -62,12 +64,13 @@ Format: S<n> with Status/Target/AI instructions. First `pending` = next work. A 
   2. Any post-freeze fix = new tag + re-seed + re-test + one logged line.
 
 ## S9: Pitch deck + pitch research + rehearsal (Sun, S8 window)
-- **Status:** `pending` (spec: `design/PITCH_CONTEXT.md` + `design/pitch-skript.md` + `design/pitch.html` on `gitea/design-doc`; `design/DESIGN_SYSTEM.md` §8+§16; scope P0.8; brief §6 pack + §7 4+3+1)
+- **Status:** `deferred` (operator order Oct 4 2026: pitch later; revisit on operator call; blocks nothing)
 - **Target:** 9-slide deck synced with the 4-min script (~520 words), PDF exported (3–12 slides, first 3 on H01 spine), team names + Saturday test numbers filled verbatim, 5 Q&A answers ready, timer rehearsals stopping at 3:50, delivery 4+3+1.
 - **AI instructions:**
   1. Research first, all from files: `git fetch gitea` then `git show gitea/design-doc:design/PITCH_CONTEXT.md` + `:design/pitch-skript.md` + `:design/pitch.html` + `:design/DESIGN_SYSTEM.md` + `:design/DESIGN_DOC.md` §§10–12; ground every number in `web3-security-platform/09-evidence-and-sources.md` + scope — no invented facts, unmeasured stays `[dopisati]`.
   2. Sync script to 9 slides before any rehearsal (script was written for 6); content frozen Sun 11:00 with S8 — after that formatting/AV/rehearsal only.
   3. Design system is law for visible surfaces (`DESIGN_SYSTEM.md` v1.0 + anti-slop rules); `page/` on the branch is plain Vite, not SvelteKit — reference only, never merge as the app.
+  4. Deferred Oct 4 2026: skip this goal until the operator calls it back. It blocks nothing.
 
 
 ## S10: CTF port track — fetch, port, solve, credit (content, post-S6)

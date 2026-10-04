@@ -16,24 +16,14 @@ export type L2Owner = {
     {
       "name": "checkBalanceInsecure",
       "docs": [
+        "## INSECURE: balance read, owner never asked",
         "",
-        "## [INSECURE] INSECURE: No Owner Verification",
-        "",
-        "This instruction reads token balance from an account without verifying",
-        "that the account is actually owned by the SPL Token program.",
-        "",
-        "### Attack Scenario:",
-        "1. Lending protocol uses this to check collateral before lending",
-        "2. Attacker creates a System Program-owned account",
-        "3. Attacker writes fake data that looks like TokenAccount with 1M tokens",
-        "4. Program reads the fake balance and approves a massive loan",
-        "5. Attacker defaults, protocol loses real funds",
-        "",
-        "### Why This Happens:",
-        "`AccountInfo` is just raw bytes - it doesn't verify:",
-        "- Who owns the account",
-        "- Whether the data is valid",
-        "- Whether it's actually the type we expect",
+        "Attack scenario:",
+        "1. A lending flow trusts this check before approving a loan.",
+        "2. Attacker creates a System-owned account with fake TokenAccount",
+        "bytes: 1_000_000 written at offsets 64..72.",
+        "3. The program parses the fabrication and reports a real balance.",
+        "The loan that follows is backed by nothing.",
         ""
       ],
       "discriminator": [
@@ -56,20 +46,11 @@ export type L2Owner = {
     {
       "name": "checkBalanceSecureAnchor",
       "docs": [
+        "## SECURE (recommended): the type system checks ownership",
         "",
-        "## [SECURE][SECURE] RECOMMENDED: Use Anchor's Account Type",
-        "",
-        "This is the idiomatic Anchor approach. Using `Account<'info, TokenAccount>`",
-        "automatically verifies:",
-        "1. The account is owned by SPL Token program",
-        "2. The data deserializes correctly to TokenAccount",
-        "3. The account is not closed (rent-exempt check)",
-        "",
-        "### Why This Is Best:",
-        "- Less code = fewer bugs",
-        "- Anchor handles edge cases",
-        "- Compile-time type safety",
-        "- Clear intent to code reviewers",
+        "`Account<'info, TokenAccount>` verifies owner plus deserialization",
+        "plus discriminator BEFORE the body runs. Less code, fewer places to",
+        "forget: the check cannot be skipped at a new call site.",
         ""
       ],
       "discriminator": [
@@ -100,11 +81,11 @@ export type L2Owner = {
     {
       "name": "checkBalanceSecureManual",
       "docs": [
+        "## SECURE (manual): refuse any account the Token program does not own",
         "",
-        "## [SECURE] SECURE: Manual Owner Verification",
-        "",
-        "This version manually checks that the account is owned by the Token program",
-        "before trusting its data. This is the \"raw\" approach.",
+        "Same shape as the insecure instruction, plus one explicit owner",
+        "compare before parsing. Secure, but every new call site must",
+        "remember it.",
         ""
       ],
       "discriminator": [
@@ -127,11 +108,10 @@ export type L2Owner = {
     {
       "name": "getUserLevelInsecure",
       "docs": [
+        "## INSECURE: custom account, same missing question",
         "",
-        "## [INSECURE] INSECURE: Custom Account Without Validation",
-        "",
-        "This demonstrates the vulnerability with program-defined accounts.",
-        "Using raw AccountInfo allows attacker to pass fake UserProfile data.",
+        "The same bug on a program-defined type: a raw `UserProfile` parse",
+        "with no owner check. A fabricated account claiming admin passes.",
         ""
       ],
       "discriminator": [
@@ -154,13 +134,11 @@ export type L2Owner = {
     {
       "name": "getUserLevelSecure",
       "docs": [
+        "## SECURE: the type proves the profile is ours",
         "",
-        "## [SECURE] SECURE: Custom Account With Full Validation",
-        "",
-        "Using `Account<'info, UserProfile>` ensures:",
-        "1. Account is owned by THIS program",
-        "2. Discriminator matches UserProfile type",
-        "3. Data deserializes correctly",
+        "`Account<'info, UserProfile>` verifies this program owns the account",
+        "plus discriminator plus shape BEFORE the body runs. A fabrication",
+        "fails at the door.",
         ""
       ],
       "discriminator": [
@@ -204,7 +182,7 @@ export type L2Owner = {
     {
       "name": "initializeProfile",
       "docs": [
-        "Initialize a user profile for testing"
+        "Open a user profile for demonstration."
       ],
       "discriminator": [
         32,

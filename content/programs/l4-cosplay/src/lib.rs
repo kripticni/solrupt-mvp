@@ -10,7 +10,7 @@
 //! asking WHAT TYPE they are cannot tell the costumes apart.
 //!
 //! ## The vulnerability
-//! `claim_insecure` takes any account, skips the 8-byte discriminator slot,
+//! The insecure instruction takes any account, skips the 8-byte discriminator slot,
 //! reads bytes 8..40 as "the authority", and compares against the signer.
 //! The attacker registers a `Note` pointing at themselves, passes it where a
 //! `User` is expected, and the equality check (correct bytes, wrong type)

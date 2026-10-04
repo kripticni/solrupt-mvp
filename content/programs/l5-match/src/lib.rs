@@ -5,12 +5,12 @@
 //!
 //! ## Overview
 //! L1 taught: no signature, no withdrawal. This room teaches the second half:
-//! a VALID signature on the WRONG account is equally worthless. The program
-//! verifies somebody signed. But never checks the signer OWNS the vault
+//! a valid signature on the wrong account is equally worthless. The program
+//! verifies somebody signed. But never checks the signer owns the vault
 //! being drained.
 //!
 //! ## The vulnerability
-//! `withdraw_insecure` takes a vault and a signer and moves funds without ever
+//! The insecure instruction takes a vault and a signer and moves funds without
 //! comparing `vault.authority` to the signer. Bob signs his own transaction,
 //! passes ALICE's vault, and the program (signature present, relationship
 //! absent) sends Alice's balance to Bob.

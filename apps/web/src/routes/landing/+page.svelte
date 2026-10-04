@@ -299,7 +299,11 @@
 		gap: 12px;
 		flex-wrap: wrap;
 		justify-content: center;
+		align-items: center;
 		margin-top: 30px;
+	}
+	.land .btn {
+		margin: 0.25rem 6px;
 	}
 	.btn {
 		display: inline-block;
@@ -448,6 +452,7 @@
 	}
 	.anatomy h2 {
 		margin-top: 0;
+		text-align: center;
 	}
 	.anatomy ol {
 		list-style: none;
@@ -484,6 +489,10 @@
 	}
 	.boardprev h2 {
 		margin-top: 0;
+		text-align: center;
+	}
+	.boardprev > p {
+		text-align: center;
 	}
 	.boardprev ol {
 		list-style: none;
