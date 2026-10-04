@@ -108,4 +108,4 @@ if (vaultBalance() !== INITIAL) fail("init balance wrong");
 }
 const after = vaultBalance();
 if (after !== INITIAL - STEAL) fail(`state assert: balance ${after}, want ${INITIAL - STEAL}`);
-console.log(`SOLVE PASS: vault ${INITIAL} -> ${after} (attacker gained ${STEAL})`);
+console.log(`SOLVE PASS: vault ${INITIAL} to ${after} (attacker gained ${STEAL})`);
