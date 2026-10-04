@@ -8,7 +8,7 @@ program:
   vuln: content/programs/l1-signer/src/lib.rs
   fixed: content/programs/l1-signer/src/lib.rs
   so: content/programs/l1-signer/l1_signer.so
-  so_digest: aad7d056709fac66d5519b4bd7d109eda73aea77c37bd7cfeb8990267f10d497 # anchor build 2026-10-04, solana 2.3.0 + anchor 0.32.2
+  so_digest: be3a711d0c744a6f0a2dd0e83edfee220410fcdb31379d762677a06cb5e3ebe1 # cargo build-sbf 2026-10-04, solana 2.3.0 platform-tools v1.48 (copy-voice rebuild)
 template: content/programs/l1-signer/exploit-template.txt
 hints:
   - "The withdraw instruction takes an authority account. What proves the authority agreed to this transaction?"

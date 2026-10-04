@@ -8,7 +8,7 @@ program:
   vuln: content/programs/l2-owner/src/lib.rs
   fixed: content/programs/l2-owner/src/lib.rs
   so: content/programs/l2-owner/l2_owner.so
-  so_digest: 3d08d88e95a47a13b02ed330746bdd679d42c34d5015a17a10a1ca7d2bc6dbd0 # anchor build 2026-10-04, solana 2.3.0 + anchor 0.32.2
+  so_digest: f86ce00fcfd64644912ceb07eec938a39f91b9c8203012fdca2f2d238599b627 # cargo build-sbf 2026-10-04, solana 2.3.0 platform-tools v1.48 (copy-voice rebuild)
 template: content/programs/l2-owner/exploit-template.txt
 hints:
   - "Every Solana account has an owner field. This program never looks at it. What could you put in front of it?"
