@@ -14,7 +14,7 @@
     <text x="464" y="74" fill="#3fb950">PDA address</text>
     <text x="464" y="94" fill="#8b949e">only program signs</text>
     <rect x="24" y="120" width="592" height="52" rx="6" fill="none" stroke="#f85149" stroke-width="1.5" stroke-dasharray="5 4"/>
-    <text x="34" y="142" fill="#f85149">caller-supplied bump --&gt; ground to a colliding address (bounces off)</text>
+    <text x="34" y="142" fill="#f85149">caller-supplied bump --&gt; grind to a colliding address (bounces off)</text>
     <text x="34" y="162" fill="#8b949e">never accept bump as instruction input</text>
   </g>
   <text x="24" y="196" fill="#e6edf3" font-family="monospace" font-size="12">caption: the stored canonical bump is the only address the program can sign for.</text>

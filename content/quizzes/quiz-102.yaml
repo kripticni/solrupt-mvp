@@ -18,14 +18,14 @@ questions:
   - id: q2
     q: "A PDA is derived from seeds plus a bump and has no private key. Why must the bump be stored in the account and reused instead of accepted from the caller?"
     choices:
-      - "Bumps are secret and must never appear onchain"
-      - "A caller supplied bump lets an attacker grind a colliding address the program never authorized"
+      - "Bumps are secret and must never appear on-chain"
+      - "A caller-supplied bump lets an attacker grind a colliding address the program never authorized"
       - "Stored bumps save compute units on every call"
       - "The runtime rejects transactions that pass a bump explicitly"
     answer: 1
     points: 5
     severity: High
-    explain: "Only the canonical bump yields the address the program can sign for. Accepting a caller bump lets an attacker steer derivation to an address outside the program's control."
+    explain: "Only the canonical bump yields the address the program can sign for. Accepting a caller-supplied bump lets an attacker steer derivation to an address outside the program's control."
     review: "PDAs: the same idea, one level up"
   - id: q3
     q: "Which Anchor type verifies owner, deserialization, and discriminator before the instruction body runs?"

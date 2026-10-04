@@ -12,7 +12,7 @@
     <text x="388" y="74" fill="#58a6ff">data: bytes</text>
     <text x="388" y="94" fill="#8b949e">anything at all</text>
     <rect x="24" y="120" width="280" height="64" rx="6" fill="none" stroke="#d29922" stroke-width="2"/>
-    <text x="34" y="144" fill="#d29922">owner: pubkey  (ONLY writer)</text>
+    <text x="34" y="144" fill="#d29922">owner: pubkey  (sole writer)</text>
     <text x="34" y="164" fill="#8b949e">says who is responsible</text>
     <rect x="316" y="120" width="212" height="64" rx="6" fill="none" stroke="#8b949e" stroke-width="1.5" stroke-dasharray="5 4"/>
     <text x="326" y="144" fill="#8b949e">executable: bool</text>

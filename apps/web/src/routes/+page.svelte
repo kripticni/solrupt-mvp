@@ -55,7 +55,7 @@
 		<div><span class="muted">$ session claimed (jovan) · room l1-signer · 900s TTL</span></div>
 		<div><span class="muted">$ run exploit: withdraw_insecure, unsigned, 10000000 lamports</span></div>
 		<div><span class="ok">[PASS] vault 100000000 to 90000000 (attacker gained 10000000)</span></div>
-		<div>negative control: fixed code FAILED the exploit (good)</div>
+		<div>negative control: the fixed code refused the exploit</div>
 		<div><span class="muted">proof: /proof/126b48f1…c15380 · runnable again from the URL alone</span></div>
 	</div>
 </div>
@@ -65,7 +65,7 @@
 	<h3>Tutorials end. Proof does not start.</h3>
 	<p>
 		Local setup takes hours: Rust plus Anchor plus CLI conflicts. And when the
-		tutorial ends, a CV line remains that nobody can verify again. No feedback,
+		tutorial ends, all you hold is a CV line nobody can verify. No feedback,
 		no next step, no trusted artifact.
 	</p>
 	<p>
@@ -80,12 +80,12 @@
 <div class="steps">
 	<div class="panel">
 		<h3>{@html icon("terminal")} 1. Learn</h3>
-		<p class="muted">Five minute lessons: accounts, signers, owners, CPI, types, relationships. Each one ends in a room.</p>
+		<p class="muted">Five-minute lessons: accounts, signers, owners, CPI, types, relationships. Each one ends in a room.</p>
 		<p><a href="/learn">Open the path {@html icon("arrow")}</a></p>
 	</div>
 	<div class="panel">
 		<h3>{@html icon("lock")} 2. Hack</h3>
-		<p class="muted">Vuln vs fixed side by side. One Run button, state verdict, staged hints.</p>
+		<p class="muted">Vulnerable and fixed, side by side. One Run button, state verdict, hints on demand.</p>
 		<p><a href="/rooms">Open the rooms {@html icon("arrow")}</a></p>
 	</div>
 	<div class="panel">
@@ -133,7 +133,7 @@
 		<h3>Which chain?</h3>
 		<p class="muted">
 			Solana only. Rooms run against real Solana programs, verified against
-			real onchain state semantics.
+			real on-chain state.
 		</p>
 	</div>
 	<div class="panel">
@@ -156,7 +156,7 @@
 <div class="panel hero-ok">
 	<h3>{@html icon("shield")} Why the verdicts are trustworthy</h3>
 	<p>
-		The verdict reads onchain account state, never log text. Every pass ships
+		The verdict reads on-chain account state, never log text. Every pass ships
 		with its negative control: the same exploit run against the fixed program,
 		which must refuse. Attempts, hints and timestamps are baked into the proof
 		hash. Nothing to take on faith.

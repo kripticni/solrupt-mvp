@@ -85,7 +85,7 @@
 		<p><strong>Severity:</strong> {asText(proof.severity) ?? "unknown"}</p>
 		<p><strong>Proof:</strong> {asText(proof.proof) ?? "unknown"}</p>
 		<p><strong>Fix:</strong> {asText(proof.fix) ?? "unknown"}</p>
-		<p>negative control: fixed code FAILED the exploit (good)</p>
+		<p>negative control: the fixed code refused the exploit</p>
 		<p class="muted">
 			Attempts: {typeof proof.attempts === "number" ? proof.attempts : "unknown"} · Hints used: {typeof proof.hints_used ===
 			"number"

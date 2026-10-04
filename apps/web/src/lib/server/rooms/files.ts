@@ -33,8 +33,8 @@ export function buildRoomFiles(id: string): { filename: string; bytes: Uint8Arra
 		"",
 		"How to submit:",
 		"1. Open the room page and claim a nickname.",
-		"2. Paste your filled exploit into the editor and press Run.",
-		"3. The verifier checks onchain state, never your logs.",
+		"2. Paste your filled exploit into the editor and press Run exploit.",
+		"3. The verifier checks on-chain state, never your logs.",
 		"",
 		`Prerequisite: ${room.prereq}. Hints live on the room page (3 per room).`
 	].join("\n");

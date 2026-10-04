@@ -214,7 +214,7 @@
 			{#if result.state_diff}<div class="termbar">{result.state_diff}</div>{/if}
 			{#if result.logs}<p>{result.logs}</p>{/if}
 			{#if result.verdict === "pass"}
-				<p>negative control: fixed code FAILED the exploit (good)</p>
+				<p>negative control: the fixed code refused the exploit</p>
 			{/if}
 			{#if result.reason}<p>{result.reason}</p>{/if}
 			{#if result.action}<p class="muted">Next: {result.action}</p>{/if}
@@ -226,7 +226,7 @@
 	<div><button class="btn-ghost" onclick={claim}>Claim a name</button></div>
 	{#if result?.verdict === "pass"}<a class="btn" href="/finding">Write your finding</a>{/if}
 	<h2>Hints</h2>
-	{#if lesson}<p class="muted">Stuck? <a href={`/learn/${lesson}`}>Retake the lesson {lesson} check</a> first.</p>{/if}
+	{#if lesson}<p class="muted">Stuck? <a href={`/learn/${lesson}`}>Review lesson {lesson}</a> first.</p>{/if}
 	<button class="btn-ghost" onclick={() => (hint = Math.min(hint + 1, 3))}>Hint ({hint}/3)</button>
 	{#if hint > 0}<div class="panel"><p>{detail.hints[hint - 1]}</p></div>{/if}
 {:else if loadError}

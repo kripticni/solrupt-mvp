@@ -22,7 +22,7 @@
 </script>
 
 <h1>Finding</h1>
-<p class="muted">Last step: describe the bug and its fix in your own words, and the proof URL is yours.</p>
+<p class="muted">Last step: describe the bug and its fix in your own words to mint your proof URL.</p>
 <div class="panel">
 	<label for="sev">Severity</label>
 	<select id="sev" bind:value={severity}>
@@ -41,7 +41,7 @@
 	{#if result.proof_url}
 		<div class="verdict-pass">
 			<strong>[PASS]</strong> <span class="muted">{result.received_at}</span>
-			<p>negative control: fixed code FAILED the exploit (good)</p>
+			<p>negative control: the fixed code refused the exploit</p>
 			<p><a href={result.proof_url}>Open your proof</a></p>
 		</div>
 	{:else}
