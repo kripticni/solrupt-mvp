@@ -246,13 +246,13 @@
 			<p><a href="/board">Open the full board</a></p>
 		{:else}
 			<p class="sub">No names yet. The first row is still yours to take.</p>
-			<p><a class="btn prism" href="/rooms/l1-signer">Take it</a></p>
+			<p class="ctas"><a class="btn prism" href="/rooms/l1-signer">Take it</a></p>
 		{/if}
 	</section>
 
 	<section class="closer reveal">
 		<h2>The vaults are full. The board is hungry.</h2>
-		<p><a class="btn prism big" href="/rooms/l1-signer">Start the first raid</a></p>
+		<p class="ctas"><a class="btn prism big" href="/rooms/l1-signer">Start the first raid</a></p>
 		<p class="micro">No setup. No wallet. Just a nickname and a vault.</p>
 	</section>
 </div>
@@ -295,12 +295,9 @@
 		margin: 0 auto;
 	}
 	.ctas {
-		display: flex;
-		gap: 12px;
-		flex-wrap: wrap;
-		justify-content: center;
-		align-items: center;
-		margin-top: 30px;
+		display: table;
+		margin: 30px auto 0;
+		text-align: center;
 	}
 	.land .btn {
 		margin: 0.25rem 6px;
@@ -322,6 +319,7 @@
 	.ghost {
 		border: 1px solid var(--line);
 		color: var(--text);
+		background: transparent;
 	}
 	.stats {
 		position: relative;
@@ -389,9 +387,11 @@
 		margin-bottom: 6px;
 	}
 	.sub {
+		display: table;
+		max-width: 100%;
+		margin: 1em auto;
 		text-align: center;
 		color: var(--muted);
-		margin-top: 0;
 	}
 	.bento {
 		display: grid;
@@ -505,6 +505,8 @@
 		gap: 12px;
 		padding: 10px 4px;
 		border-bottom: 1px solid var(--line);
+		/* Data rail, not prose: beat the global p/li 72ch measure cap. */
+		max-width: none;
 	}
 	.rank {
 		font-family: var(--font-mono);
@@ -526,10 +528,25 @@
 	.closer h2 {
 		font-size: clamp(30px, 4.5vw, 52px);
 		margin-bottom: 24px;
+		/* Even out the wrapped lines so no single word orphans. */
+		text-wrap: balance;
 	}
 	.micro {
+		display: table;
+		max-width: 100%;
+		margin: 16px auto 1em;
+		text-align: center;
 		color: var(--muted);
-		margin-top: 16px;
+	}
+	/* Centered paragraphs must span full width: the global p/li 72ch
+	   measure cap would otherwise left-anchor their centered text
+	   (button row, micro line, subs, preview link, eyebrow). */
+	.boardprev > p,
+	.sub,
+	.micro,
+	.closer p,
+	.eyebrow {
+		max-width: none;
 	}
 	.reveal {
 		opacity: 0;
