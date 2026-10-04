@@ -36,4 +36,4 @@ pub authority: Signer<'info>,
 
 `Signer` fails the transaction before your code runs when the account did not
 sign. Your turn: open the room, drain the vault with the exploit, then run the
-same bytes at the fixed program and watch them bounce off.
+same bytes at the secure instruction and watch them bounce off.

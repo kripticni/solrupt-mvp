@@ -22,7 +22,7 @@ require!(stored_authority == ctx.accounts.authority.key(), Unauthorized);
 The attacker registers a `Note` pointing at themselves and passes it where a
 `User` belongs. Bytes 8..40 hold the attacker's key, the equality check
 passes, and the ledger records a claim for a user that never existed. No
-incident one liner here: cosplay has no single canonical hack. It is a
+incident one-liner here: cosplay has no single canonical hack. It is a
 hygiene class auditors check on every program, which is exactly why this
 room pays the most points in the gym.
 

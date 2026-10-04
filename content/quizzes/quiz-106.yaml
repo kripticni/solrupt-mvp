@@ -38,4 +38,4 @@ questions:
     points: 5
     severity: High
     explain: "Defense composes the same way attacks do: consent without binding is L5's bug, binding without consent is L1's. The secure struct carries both."
-    review: "The bug (all of them)"
+    review: "The fix, composed"

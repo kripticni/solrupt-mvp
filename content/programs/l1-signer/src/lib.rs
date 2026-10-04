@@ -1,25 +1,23 @@
 // Source: z0neSec/solsec-workshop (MIT) @ 15074547581430b866b81c56dd1fde98e9a7e13d, © z0neSec; ported for arena use, original license retained.
 // Single-file layout is REQUIRED: Anchor `#[program]` generates code from this module tree.
 
-//! # Signer Authorization Vulnerability
-//! 
+//! # Missing signer: a pubkey is not consent
+//!
 //! ## Overview
-//! This program demonstrates one of the most common and dangerous vulnerabilities
-//! in Solana programs: **Missing Signer Authorization**.
-//! 
-//! ## The Vulnerability
-//! When a program accepts an `AccountInfo` without verifying that the account
-//! signed the transaction, ANY user can pass ANY public key as the "authority".
-//! This allows attackers to impersonate any user and perform unauthorized actions.
-//! 
-//! ## Real-World Impact
-//! - **Unauthorized fund transfers**: Attacker drains user wallets
-//! - **Admin impersonation**: Attacker takes control of program settings
-//! - **State manipulation**: Attacker modifies any user's data
-//! 
-//! ## The Fix
-//! Use Anchor's `Signer<'info>` type instead of raw `AccountInfo<'info>`.
-//! The `Signer` type automatically verifies that the account signed the transaction.
+//! L1 teaches the first question every instruction must answer: WHO signed?
+//! A public key passed as data proves nothing: copying Alice's address into
+//! a field is typing, not consent. Only `is_signer`, set by the runtime when
+//! the private key signs, proves agreement.
+//!
+//! ## The vulnerability
+//! The insecure instruction compares `vault.authority` against a handed pubkey
+//! and never checks the signature. The attacker passes the victim's pubkey, signs
+//! as themselves, and the equality check (correct name, no consent) waves
+//! them through.
+//!
+//! ## The fix
+//! Type the authority as `Signer<'info>`. Anchor verifies `is_signer` BEFORE
+//! the body runs, so an unsigned authority fails at the door.
 
 use anchor_lang::prelude::*;
 
@@ -33,33 +31,22 @@ pub mod l1_signer {
     // PANEL: vuln
     // VULNERABLE INSTRUCTION
     // ============================================================================
-    /// 
-    /// ## [INSECURE] INSECURE: Missing Signer Check
-    /// 
-    /// This instruction allows ANYONE to withdraw funds by simply passing any
-    /// public key as the `authority`. The program never verifies that the
-    /// authority actually signed the transaction.
-    /// 
-    /// ### Attack Scenario:
-    /// 1. Alice has a vault with 100 SOL, authority = Alice's pubkey
+    /// ## INSECURE: authority compared, signature never checked
+    ///
+    /// Attack scenario:
+    /// 1. Alice holds a vault (authority = Alice).
     /// 2. Attacker calls `withdraw_insecure` with:
-    ///    - vault = Alice's vault
-    ///    - authority = Alice's pubkey (NOT signed by Alice!)
-    /// 3. Program accepts it because it never checks if authority signed
-    /// 4. Attacker steals Alice's 100 SOL
-    /// 
-    /// ### Why This Happens:
-    /// The `authority` field is typed as `AccountInfo`, which is just a raw
-    /// reference to any account. It doesn't enforce any security checks.
-    /// 
+    ///    - vault = Alice's vault,
+    ///    - authority = Alice's pubkey (passed, NOT signed).
+    /// 3. The equality check compares names, never signatures. Funds move.
+    ///
     pub fn withdraw_insecure(ctx: Context<WithdrawInsecure>, amount: u64) -> Result<()> {
-        // [!] VULNERABILITY: We check if the authority matches, but NEVER verify
-        // that the authority actually SIGNED this transaction!
-        
+        // VULNERABILITY: the authority matches, but nobody verified it SIGNED
+        // this transaction. A correct pubkey with no signature walks through.
         let vault = &mut ctx.accounts.vault;
-        
-        // This check is USELESS without signer verification:
-        // Attacker can pass the correct authority pubkey without signing
+
+        // This check compares names, not consent: the attacker passes the
+        // correct authority pubkey without signing.
         require!(
             vault.authority == ctx.accounts.authority.key(),
             VaultError::UnauthorizedAccess
@@ -71,7 +58,7 @@ pub mod l1_signer {
             .ok_or(VaultError::Overflow)?;
         
         msg!(
-            "[!] INSECURE withdrawal of {} lamports by authority {}",
+            "INSECURE withdrawal of {} lamports by authority {}",
             amount,
             ctx.accounts.authority.key()
         );
@@ -83,26 +70,18 @@ pub mod l1_signer {
     // PANEL: fixed
     // SECURE INSTRUCTION
     // ============================================================================
-    /// 
-    /// ## [SECURE] SECURE: Proper Signer Verification
-    /// 
-    /// This instruction properly verifies that the authority has signed the
-    /// transaction using Anchor's `Signer<'info>` type.
-    /// 
-    /// ### How `Signer` Protects:
-    /// 1. Anchor automatically checks `authority.is_signer == true`
-    /// 2. If the account didn't sign, the transaction fails BEFORE your code runs
-    /// 3. The check happens at the constraint validation phase
-    /// 
-    /// ### Attack Attempt (FAILS):
-    /// 1. Attacker tries to call `withdraw_secure` with Alice's pubkey
-    /// 2. Transaction fails immediately: "Signature verification failed"
-    /// 3. Alice's funds are safe
-    /// 
+    /// ## SECURE: the signature is checked before the body runs
+    ///
+    /// `Signer<'info>` makes Anchor verify `is_signer` during validation, so
+    /// an unsigned authority fails before the instruction body executes.
+    /// Same shape, same inputs. The attacker's transaction never reaches
+    /// the equality check.
+    ///
     pub fn withdraw_secure(ctx: Context<WithdrawSecure>, amount: u64) -> Result<()> {
         let vault = &mut ctx.accounts.vault;
-        
-        // [SECURE] At this point, we KNOW authority signed because of Signer type
+
+        // Anchor already verified the authority signed: this compare now
+        // binds a proven signature, not a bare pubkey.
         require!(
             vault.authority == ctx.accounts.authority.key(),
             VaultError::UnauthorizedAccess
@@ -114,7 +93,7 @@ pub mod l1_signer {
             .ok_or(VaultError::Overflow)?;
         
         msg!(
-            "[SECURE] SECURE withdrawal of {} lamports by verified signer {}",
+            "SECURE withdrawal of {} lamports by verified signer {}",
             amount,
             ctx.accounts.authority.key()
         );
@@ -127,14 +106,14 @@ pub mod l1_signer {
     // HELPER INSTRUCTIONS
     // ============================================================================
     
-    /// Initialize a new vault for demonstration
+    /// Open a vault for demonstration.
     pub fn initialize_vault(ctx: Context<InitializeVault>, initial_balance: u64) -> Result<()> {
         let vault = &mut ctx.accounts.vault;
         vault.authority = ctx.accounts.authority.key();
         vault.balance = initial_balance;
         vault.bump = ctx.bumps.vault;
-        
-        msg!("Vault initialized with {} lamports for {}", initial_balance, vault.authority);
+
+        msg!("vault opened with {} lamports for {}", initial_balance, vault.authority);
         Ok(())
     }
 }
@@ -143,11 +122,10 @@ pub mod l1_signer {
 // ACCOUNT STRUCTURES
 // ============================================================================
 
-/// ## Insecure Accounts Structure
+/// Insecure: the authority is an unchecked account.
 // PANEL: vuln
-/// 
-/// Notice: `authority` is typed as `AccountInfo` - this is the vulnerability!
-/// Anyone can pass any pubkey here without actually signing.
+/// `authority` is typed as `AccountInfo`: any pubkey fits, none must sign.
+/// That missing requirement IS the room.
 #[derive(Accounts)]
 pub struct WithdrawInsecure<'info> {
     #[account(
@@ -157,17 +135,16 @@ pub struct WithdrawInsecure<'info> {
     )]
     pub vault: Account<'info, Vault>,
     
-    // [INSECURE] INSECURE: AccountInfo doesn't require signing!
-    // The runtime doesn't enforce that this account signed the transaction.
-    /// CHECK: This is intentionally insecure for demonstration purposes.
+    // INSECURE: AccountInfo requires no signature. The runtime never
+    // enforces that this account signed the transaction.
+    /// CHECK: intentionally unchecked. This missing check IS the room.
     pub authority: AccountInfo<'info>,
 }
 
-/// ## Secure Accounts Structure
+/// Secure: only a signing authority passes validation.
 // PANEL: fixed
-/// 
-/// Notice: `authority` is typed as `Signer` - this enforces signature verification!
-/// The transaction will fail if the authority didn't sign.
+/// `authority` is typed as `Signer`: an unsigned authority fails before the
+/// body runs.
 #[derive(Accounts)]
 pub struct WithdrawSecure<'info> {
     #[account(
@@ -177,8 +154,7 @@ pub struct WithdrawSecure<'info> {
     )]
     pub vault: Account<'info, Vault>,
     
-    // [SECURE] SECURE: Signer type enforces that this account MUST sign the transaction!
-    // Anchor automatically verifies: authority.is_signer == true
+    // SECURE: the Signer type makes Anchor verify is_signer pre-body.
     pub authority: Signer<'info>,
 }
 
@@ -207,11 +183,11 @@ pub struct InitializeVault<'info> {
 #[account]
 #[derive(InitSpace)]
 pub struct Vault {
-    /// The authorized owner who can withdraw from this vault
+    /// Who may withdraw (checked against a Signer on the secure side).
     pub authority: Pubkey,
-    /// Current balance in lamports
+    /// Bookkeeping balance in lamports.
     pub balance: u64,
-    /// PDA bump seed
+    /// PDA bump seed.
     pub bump: u8,
 }
 
@@ -233,11 +209,13 @@ pub enum VaultError {
 // SECURITY SUMMARY
 // ============================================================================
 // 
-// | Aspect              | Insecure Version        | Secure Version          |
-// |---------------------|-------------------------|-------------------------|
-// | Authority Type      | AccountInfo<'info>      | Signer<'info>           |
-// | Signature Check     | [INSECURE] None                 | [SECURE] Automatic            |
-// | Attack Possible     | [SECURE] Yes - impersonation  | [INSECURE] No                   |
-// | Anchor Constraint   | None                    | is_signer enforced      |
+// | Aspect              | Insecure                  | Secure                    |
+// |---------------------|---------------------------|---------------------------|
+// | Authority type      | AccountInfo               | Signer                    |
+// | Signature check     | none                      | automatic, pre-body       |
+// | Attack possible     | yes (impersonation)       | no                        |
+// | Anchor constraint   | none                      | is_signer enforced        |
+//
+// RULE: a pubkey is typing, not consent. Authority accounts are Signer.
 // 
 // ============================================================================

@@ -14,7 +14,7 @@ questions:
     points: 5
     severity: Critical
     explain: "Release builds wrap silently. Debug builds panic. Solana programs run release BPF, so the author testing in debug never sees the wrap the attacker exploits."
-    review: "Debug panics, release wraps"
+    review: "Release wraps"
   - id: q2
     q: "Why didn't the developer catch this in testing?"
     choices:
